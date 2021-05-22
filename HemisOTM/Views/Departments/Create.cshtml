@@ -1,0 +1,74 @@
+﻿@model DataModelEntity.Entity.Department
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-sm-12">
+    <div class="card card-header sameheight-item">
+        <a style="width:60px; height:30px" asp-action="Create" asp-controller="Teachers" class="btn btn-primary">
+            <i class="fa fa-backward"></i>
+        </a>
+        <h3>Create departmen</h3>
+        <div class="card-header">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th style="width:400px">
+                            <div class="card card-body"> 
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <form asp-action="Create">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <select style="width:400px" asp-for="FacultetId" class="form-control" asp-items="ViewBag.FacultetName"></select>
+                                                <span asp-validation-for="Name" class="text-danger"></span></div>
+                                            <a asp-controller="Facultets" asp-action="Create" class="btn btn-primary">
+                                                Add facultet
+                                            </a> <div class="form-group">
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input style="width:400px" asp-for="Name" class="form-control" />
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Create" class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.departments)
+                    {
+                        <tr>
+                            <td>
+                                @item.DepartmentId
+                            </td>
+                            <td >
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.GetFacultet.Name
+                            </td>
+                            <td>
+                                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DepartmentId">Edit</a> |
+                                <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.DepartmentId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

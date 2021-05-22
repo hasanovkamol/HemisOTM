@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="profile">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+            <span class="name"><i class="fa fa-user icon"></i> @User.Identity.Name </span>
+        </a>
+    </li>
+    <li class="profile dropdown">
+        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout">
+            <i class="fa fa-power-off icon"></i> Logout
+        </a>
+    </li>
+}
+else
+{
+    <li class="profile">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="profile">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}

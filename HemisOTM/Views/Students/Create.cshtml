@@ -1,0 +1,56 @@
+﻿@model DataModelEntity.Entity.Student
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="col-12">
+    <div class="card card-block sameheight-item">
+        <div class="title-block">
+            <div class="header-block">
+                <h2 class="title">Add new student</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Surname" class="control-label"></label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Middilname" class="control-label"></label>
+                        <input asp-for="Middilname" class="form-control" />
+                        <span asp-validation-for="Middilname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Course" class="control-label"></label>
+                        <input asp-for="Course" class="form-control" />
+                        <span asp-validation-for="Course" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <select asp-for="DirectionId" class="form-control" asp-items="ViewBag.DirectionName"></select>
+                        <br />
+                        <a class="btn btn-primary-outline" asp-controller="Directions" asp-action="Create">Add new direction</a>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-warning" asp-action="Index">Back to List</a>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+    </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

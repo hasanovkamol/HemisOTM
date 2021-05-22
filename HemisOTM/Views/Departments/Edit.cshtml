@@ -1,0 +1,41 @@
+﻿@model DataModelEntity.Entity.Department
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="col-sm-12">
+    <div class="card card-header sameheight-item">
+        <a style="width:60px; height:30px" asp-action="Create" asp-controller="Departments" class="btn btn-primary">
+            <i class="fa fa-backward"></i>
+        </a>
+        <h3>Edit departmen</h3>
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="DepartmentId" />
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"> Facultet name</label>
+                            <select asp-for="FacultetId" class="form-control" asp-items="ViewBag.FacultetName"></select>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

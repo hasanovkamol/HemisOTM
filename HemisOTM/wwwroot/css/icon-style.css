@@ -1,0 +1,19 @@
+﻿#viewList {
+    color: #ffc107 !important;
+    font-size: 1.5em;
+}
+
+#edit {
+    color: #28a745 !important;
+    font-size: 1.5em;
+}
+
+#details {
+    color: #007bff !important;
+    font-size: 1.5em;
+}
+
+#delete {
+    color: #dc3545 !important;
+    font-size: 1.5em;
+}
