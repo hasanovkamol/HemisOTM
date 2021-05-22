@@ -9,6 +9,7 @@ namespace DataModelEntity.Entity
     {
         [Key]
         public int SubjectId { get; set; }
+        [Display(Name = "Fanning malakaviy kodi")]
         public int SubjectCode { get; set; }
         public string Name { get; set; }
         [Display(Name="Ma'ruza")]

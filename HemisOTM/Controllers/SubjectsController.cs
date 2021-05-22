@@ -17,14 +17,10 @@ namespace HemisOTM.Controllers
         {
             _context = context;
         }
-
-        // GET: Subjects
         public async Task<IActionResult> Index()
         {
             return View(await _context.Subjects.ToListAsync());
         }
-
-        // GET: Subjects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,16 +37,10 @@ namespace HemisOTM.Controllers
 
             return View(subject);
         }
-
-        // GET: Subjects/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Subjects/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,IndependentEducation,AmountofCredit")] Subject subject)
@@ -63,8 +53,6 @@ namespace HemisOTM.Controllers
             }
             return View(subject);
         }
-
-        // GET: Subjects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,9 +68,6 @@ namespace HemisOTM.Controllers
             return View(subject);
         }
 
-        // POST: Subjects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,IndependentEducation,AmountofCredit")] Subject subject)
@@ -114,8 +99,6 @@ namespace HemisOTM.Controllers
             }
             return View(subject);
         }
-
-        // GET: Subjects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,8 +115,6 @@ namespace HemisOTM.Controllers
 
             return View(subject);
         }
-
-        // POST: Subjects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
