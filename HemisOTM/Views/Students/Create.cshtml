@@ -36,7 +36,7 @@
                         <span asp-validation-for="Course" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
+                        <label  class="control-label">Select direction</label>
                         <select asp-for="DirectionId" class="form-control" asp-items="ViewBag.DirectionName"></select>
                         <br />
                         <a class="btn btn-primary-outline" asp-controller="Directions" asp-action="Create">Add new direction</a>

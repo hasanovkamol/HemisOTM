@@ -172,29 +172,29 @@ namespace DataModelEntity.Migrations
                     b.Property<int>("AmountofCredit")
                         .HasColumnType("int");
 
-                    b.Property<string>("CourseWork")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CourseWork")
+                        .HasColumnType("int");
 
                     b.Property<string>("IndependentEducation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Laboratory")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Laboratory")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Lecture")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Lecture")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Practical")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Seminar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SubjectCode")
+                    b.Property<int>("Practical")
                         .HasColumnType("int");
+
+                    b.Property<int>("Seminar")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubjectCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SubjectId");
 

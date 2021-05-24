@@ -10,18 +10,18 @@ namespace DataModelEntity.Entity
         [Key]
         public int SubjectId { get; set; }
         [Display(Name = "Fanning malakaviy kodi")]
-        public int SubjectCode { get; set; }
+        public string SubjectCode { get; set; }
         public string Name { get; set; }
         [Display(Name="Ma'ruza")]
-        public string Lecture { get; set; }
+        public int Lecture { get; set; }
         [Display(Name = "Amaliy")]
-        public string Practical { get; set; }
+        public int Practical { get; set; }
         [Display(Name = "Labaratorya")]
-        public string Laboratory { get; set; }
+        public int Laboratory { get; set; }
         [Display(Name = "Seminar")]
-        public string Seminar { get; set; }
+        public int Seminar { get; set; }
         [Display(Name = "Kurs ishi")]
-        public string CourseWork { get; set; }
+        public int CourseWork { get; set; }
         [Display(Name = "Mustaqil ta'lim")]
         public string IndependentEducation { get; set; }
         [Display(Name = "Kredit miqdori")]

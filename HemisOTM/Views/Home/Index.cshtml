@@ -1,40 +1,40 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<style>
+    .card-img-top{
+        height:180px;
+    }
+</style>
 <div class="col-sm-12">
     <div class="card card-header sameheight-item">
         <div class="card-header">
             <div class="card card-body">
-                <h5 class="card-header">O'qituvchilar</h5>
+                <img alt="Card image cap" class="card-img-top" src="~/images/LogoHome/teacherIcon.png" />
                 <div class="card-block border">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-header alert-info">Teacher</h5>
+                    <a asp-action="Index" asp-controller="Teachers" class="btn btn-primary">Go to page  </a>
                 </div>
             </div>
             <div class="card card-body">
-                <h5 class="card-header">Fanlar</h5>
+                <img alt="Card image cap" class="card-img-top" src="~/images/LogoHome/subjectIcon.png" />
                 <div class="card-block border">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-header">Subject</h5>
+                   <a asp-controller="Subjects" asp-action="Index" class="btn btn-primary">Go to page</a>
                 </div>
             </div>
             <div class="card card-body">
-                <h5 class="card-header">O'quv rejasi</h5>
+                <img alt="Card image cap" class="card-img-top" src="~/images/LogoHome/trainingplanIcon.png" />
                 <div class="card-block border">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-header">Training Plan</h5>
+                    <a asp-controller="HarvestPlans" asp-action="Index" class="btn btn-primary">Go to page</a>
                 </div>
             </div>
             <div class="card card-body">
-                <h5 class="card-header">Talabalar</h5>
+                <img alt="Card image cap" class="card-img-top" src="~/images/LogoHome/studentIcon.jpg" />
                 <div class="card-block border">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-header">Student</h5>
+                    <a asp-controller="Students" asp-action="Index" class="btn btn-primary">Go to page</a>
                 </div>
             </div>
            </div>

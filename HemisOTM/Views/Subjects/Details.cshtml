@@ -4,69 +4,75 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="col-12">
+    <div class="card card-header sameheight-item">
+        <a style="width:60px; height:30px" asp-action="Index" asp-controller="Subjects" class="btn btn-primary">
+            <i class="fa fa-backward"></i>
+        </a><h3>Edit subject</h3>
+        <div class="card-header">
+            <div>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.SubjectCode)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.SubjectCode)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Lecture)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Lecture)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Practical)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Practical)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Laboratory)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Laboratory)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Seminar)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Seminar)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CourseWork)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CourseWork)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.IndependentEducation)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IndependentEducation)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AmountofCredit)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AmountofCredit)
+                    </dd>
+                    <dd class="col-sm-10">
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.SubjectId">Edit</a> |
+                        <a class="btn btn-warning" asp-action="Delete" asp-route-id="@Model.SubjectId">Delete</a>
 
-<div>
-    <h4>Subject</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SubjectCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SubjectCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lecture)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lecture)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Practical)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Practical)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Laboratory)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Laboratory)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Seminar)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Seminar)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CourseWork)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CourseWork)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IndependentEducation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IndependentEducation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AmountofCredit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AmountofCredit)
-        </dd>
-    </dl>
+                    </dd>
+                </dl>
+            </div>
+            </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.SubjectId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
