@@ -42,15 +42,12 @@ namespace HemisOTM.Controllers
             return View(direction);
         }
 
-        // GET: Directions/Create
         public IActionResult Create()
         {
+            var directions = _context.Directions.ToList();
+            ViewBag.direction = directions;
             return View();
         }
-
-        // POST: Directions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DirectionId,Code,Name")] Direction direction)
@@ -59,9 +56,11 @@ namespace HemisOTM.Controllers
             {
                 _context.Add(direction);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
             }
-            return View(direction);
+            var directions = _context.Directions.ToList();
+            ViewBag.direction = directions;
+            return View();
         }
 
         // GET: Directions/Edit/5

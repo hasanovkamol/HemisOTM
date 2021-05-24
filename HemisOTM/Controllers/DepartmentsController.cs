@@ -62,7 +62,7 @@ namespace HemisOTM.Controllers
                 return View();
             }
             ViewData["FacultetName"] = new SelectList(_context.Facultets, "FacultetID", "Name");
-           return RedirectToAction(nameof(Create));
+           return View();
         }
         public async Task<IActionResult> Edit(int? id)
         {
