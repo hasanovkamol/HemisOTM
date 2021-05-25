@@ -22,5 +22,6 @@ namespace DataModelEntity.Entity
         public DbSet<SubjectBlockType> SubjectBlockTypes { get; set; }
         public DbSet<HarvestPlan> HarvestPlans { get; set; }
         public DbSet<UploadFile> UploadFiles { get; set; }
+        public DbSet<GrupStudentList> GrupStudentLists { get; set; }
     }
 }

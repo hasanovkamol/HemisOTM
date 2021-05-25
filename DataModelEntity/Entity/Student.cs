@@ -17,7 +17,6 @@ namespace DataModelEntity.Entity
         public Direction GetDirection { get; set; }
         public int Course { get; set; }
         public int DirectionId { get; set; }
-        public List<Grup> Grups { get; set; }
 
     }
 }

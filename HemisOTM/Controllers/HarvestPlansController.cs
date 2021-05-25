@@ -18,14 +18,12 @@ namespace HemisOTM.Controllers
             _context = context;
         }
 
-        // GET: HarvestPlans
         public async Task<IActionResult> Index()
         {
             var entityDbContext = _context.HarvestPlans.Include(h => h.GetSubject).Include(h => h.GetTeacher).Include(h => h.Grups);
             return View(await entityDbContext.ToListAsync());
         }
 
-        // GET: HarvestPlans/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,19 +43,15 @@ namespace HemisOTM.Controllers
 
             return View(harvestPlan);
         }
-
-        // GET: HarvestPlans/Create
         public IActionResult Create()
         {
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectId");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId");
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId");
+            //ViewData["Department"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
             return View();
         }
 
-        // POST: HarvestPlans/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("HarvestPlanId,Name,Depatment,TeacherId,SubjectId,GrupId,BlockTypeId")] HarvestPlan harvestPlan)
@@ -68,13 +62,12 @@ namespace HemisOTM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectId", harvestPlan.SubjectId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
 
-        // GET: HarvestPlans/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,15 +80,12 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectId", harvestPlan.SubjectId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
 
-        // POST: HarvestPlans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("HarvestPlanId,Name,Depatment,TeacherId,SubjectId,GrupId,BlockTypeId")] HarvestPlan harvestPlan)
@@ -125,13 +115,12 @@ namespace HemisOTM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectId", harvestPlan.SubjectId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
+            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
 
-        // GET: HarvestPlans/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,7 +141,6 @@ namespace HemisOTM.Controllers
             return View(harvestPlan);
         }
 
-        // POST: HarvestPlans/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
