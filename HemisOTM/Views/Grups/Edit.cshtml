@@ -4,36 +4,77 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Grup</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="GrupId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="col-12">
+    <div class="card card-header sameheight-item">
+        <a style="width:60px; height:30px" asp-action="Index" asp-controller="Grups" class="btn btn-primary">
+            <i class="fa fa-backward"></i>
+        </a><h3>Edit grup</h3><br />
+        <div class="card-header">
+            <div class="col-md-12">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="GrupId" />
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr class="table-active">
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Surname
+                            </th>
+                            <th>
+                                Middil name
+                            </th>
+                            <th>
+                                Direction
+                            </th>
+                            <th>
+                                Course
+                            </th>
+                            <th>Selec student</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.student)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @item.Surname
+                                </td>
+                                <td>
+                                    @item.Middilname
+                                </td>
+                                <td>
+                                    @item.GetDirection.Name
+                                </td>
+                                <td>
+                                    @item.Course
+                                </td>
+                                <td>
+                                    <a class="fa fa-check" asp-action="Selete" asp-controller="Grups" asp-route-id="@item.StudentId"> Select</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label asp-for="StudentId" class="control-label"></label>
-                <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
-                <span asp-validation-for="StudentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

@@ -19,7 +19,7 @@ namespace HemisOTM.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subjects.ToListAsync());
+            return View(await _context.Subjects.Include(x=>x.SubjectBlockType).ToListAsync());
         }
         public async Task<IActionResult> Details(int? id)
         {
@@ -39,18 +39,20 @@ namespace HemisOTM.Controllers
         }
         public IActionResult Create()
         {
+            ViewData["SubjectBlock"] = new SelectList(_context.SubjectBlockTypes, "Id", "Name");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,IndependentEducation,AmountofCredit")] Subject subject)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(subject);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+        public async Task<IActionResult> Create([Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo")] Subject subject)
+        {                                                                                                                                               
+            if (ModelState.IsValid)                                                                                                                     
+            {                                                                                                                                           
+                _context.Add(subject);                                                                                                                 
+                await _context.SaveChangesAsync();                                                                                                     
+                return RedirectToAction(nameof(Index));                                                                                                
+            }                                                                                                                                          
+            ViewData["SubjectBlock"] = new SelectList(_context.SubjectBlockTypes, "Id", "Name");
             return View(subject);
         }
         public async Task<IActionResult> Edit(int? id)
@@ -59,7 +61,7 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["SubjectBlock"] = new SelectList(_context.SubjectBlockTypes, "Id", "Name");
             var subject = await _context.Subjects.FindAsync(id);
             if (subject == null)
             {
@@ -70,7 +72,7 @@ namespace HemisOTM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,IndependentEducation,AmountofCredit")] Subject subject)
+        public async Task<IActionResult> Edit(int id, [Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo")] Subject subject)
         {
             if (id != subject.SubjectId)
             {
@@ -97,6 +99,7 @@ namespace HemisOTM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SubjectBlock"] = new SelectList(_context.SubjectBlockTypes, "Id", "Name");
             return View(subject);
         }
         public async Task<IActionResult> Delete(int? id)

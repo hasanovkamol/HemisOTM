@@ -18,14 +18,12 @@ namespace HemisOTM.Controllers
             _context = context;
         }
 
-        // GET: Grups
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.Grups.Include(g => g.GetStudent);
+            var entityDbContext = _context.Grups;
             return View(await entityDbContext.ToListAsync());
         }
 
-        // GET: Grups/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,7 +32,6 @@ namespace HemisOTM.Controllers
             }
 
             var grup = await _context.Grups
-                .Include(g => g.GetStudent)
                 .FirstOrDefaultAsync(m => m.GrupId == id);
             if (grup == null)
             {
@@ -44,19 +41,14 @@ namespace HemisOTM.Controllers
             return View(grup);
         }
 
-        // GET: Grups/Create
-        public IActionResult Create()
+         public IActionResult Create()
         {
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "StudentId");
-            return View();
+           return View();
         }
 
-        // POST: Grups/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GrupId,Name,StudentId")] Grup grup)
+        public async Task<IActionResult> Create([Bind("GrupId,Name")] Grup grup)
         {
             if (ModelState.IsValid)
             {
@@ -64,11 +56,16 @@ namespace HemisOTM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "StudentId", grup.StudentId);
-            return View(grup);
+           return View(grup);
         }
+        public void Select(int? StudentId)
+        {
+            if (GrupId != 0)
+            {
 
-        // GET: Grups/Edit/5
+            }
+        }
+        private static int? GrupId=0;
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,16 +78,15 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "StudentId", grup.StudentId);
+            GrupId = id;
+            var students = _context.Students.Include(x => x.GetDirection).ToList();
+            ViewBag.student = students;
             return View(grup);
         }
 
-        // POST: Grups/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GrupId,Name,StudentId")] Grup grup)
+        public async Task<IActionResult> Edit(int id, [Bind("GrupId,Name")] Grup grup)
         {
             if (id != grup.GrupId)
             {
@@ -117,11 +113,9 @@ namespace HemisOTM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["StudentId"] = new SelectList(_context.Students, "StudentId", "StudentId", grup.StudentId);
             return View(grup);
         }
 
-        // GET: Grups/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,7 +124,6 @@ namespace HemisOTM.Controllers
             }
 
             var grup = await _context.Grups
-                .Include(g => g.GetStudent)
                 .FirstOrDefaultAsync(m => m.GrupId == id);
             if (grup == null)
             {
@@ -140,7 +133,6 @@ namespace HemisOTM.Controllers
             return View(grup);
         }
 
-        // POST: Grups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -15,8 +15,8 @@ namespace DataModelEntity.Entity
         public string Middilname { get; set; }
         [Display(Name="Diraction name")]
         public Direction GetDirection { get; set; }
-        public int Course { get; set; }
         public int DirectionId { get; set; }
+        public int Course { get; set; }
 
     }
 }

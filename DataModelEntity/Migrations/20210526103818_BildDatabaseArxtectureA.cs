@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataModelEntity.Migrations
 {
-    public partial class asd : Migration
+    public partial class BildDatabaseArxtectureA : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,20 @@ namespace DataModelEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Directions",
+                columns: table => new
+                {
+                    DirectionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Directions", x => x.DirectionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Facultets",
                 columns: table => new
                 {
@@ -57,6 +71,46 @@ namespace DataModelEntity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Facultets", x => x.FacultetID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Grups",
+                columns: table => new
+                {
+                    GrupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Grups", x => x.GrupId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GrupStudentLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GrupId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GrupStudentLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubjectBlockTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubjectBlockTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,6 +220,29 @@ namespace DataModelEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Middilname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DirectionId = table.Column<int>(type: "int", nullable: false),
+                    Course = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_Students_Directions_DirectionId",
+                        column: x => x.DirectionId,
+                        principalTable: "Directions",
+                        principalColumn: "DirectionId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
                 {
@@ -182,6 +259,41 @@ namespace DataModelEntity.Migrations
                         column: x => x.FacultetId,
                         principalTable: "Facultets",
                         principalColumn: "FacultetID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subjects",
+                columns: table => new
+                {
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Lecture = table.Column<int>(type: "int", nullable: false),
+                    Practical = table.Column<int>(type: "int", nullable: false),
+                    Laboratory = table.Column<int>(type: "int", nullable: false),
+                    Seminar = table.Column<int>(type: "int", nullable: false),
+                    CourseWork = table.Column<int>(type: "int", nullable: false),
+                    IndependentEducation = table.Column<int>(type: "int", nullable: false),
+                    OneOne = table.Column<int>(type: "int", nullable: false),
+                    OneTwo = table.Column<int>(type: "int", nullable: false),
+                    TwoOne = table.Column<int>(type: "int", nullable: false),
+                    TwoTwo = table.Column<int>(type: "int", nullable: false),
+                    ThreeOne = table.Column<int>(type: "int", nullable: false),
+                    ThreeTwo = table.Column<int>(type: "int", nullable: false),
+                    FourOne = table.Column<int>(type: "int", nullable: false),
+                    FourTwo = table.Column<int>(type: "int", nullable: false),
+                    SubjectBlockTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subjects", x => x.SubjectId);
+                    table.ForeignKey(
+                        name: "FK_Subjects_SubjectBlockTypes_SubjectBlockTypeId",
+                        column: x => x.SubjectBlockTypeId,
+                        principalTable: "SubjectBlockTypes",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -206,6 +318,41 @@ namespace DataModelEntity.Migrations
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "DepartmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HarvestPlans",
+                columns: table => new
+                {
+                    HarvestPlanId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Depatment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    GrupId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HarvestPlans", x => x.HarvestPlanId);
+                    table.ForeignKey(
+                        name: "FK_HarvestPlans_Grups_GrupId",
+                        column: x => x.GrupId,
+                        principalTable: "Grups",
+                        principalColumn: "GrupId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HarvestPlans_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HarvestPlans_Teachers_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Teachers",
+                        principalColumn: "TeacherId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -254,6 +401,31 @@ namespace DataModelEntity.Migrations
                 column: "FacultetId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HarvestPlans_GrupId",
+                table: "HarvestPlans",
+                column: "GrupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HarvestPlans_SubjectId",
+                table: "HarvestPlans",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HarvestPlans_TeacherId",
+                table: "HarvestPlans",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_DirectionId",
+                table: "Students",
+                column: "DirectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_SubjectBlockTypeId",
+                table: "Subjects",
+                column: "SubjectBlockTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teachers_DepartmentId",
                 table: "Teachers",
                 column: "DepartmentId");
@@ -277,13 +449,34 @@ namespace DataModelEntity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Teachers");
+                name: "GrupStudentLists");
+
+            migrationBuilder.DropTable(
+                name: "HarvestPlans");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Grups");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
+
+            migrationBuilder.DropTable(
+                name: "Teachers");
+
+            migrationBuilder.DropTable(
+                name: "Directions");
+
+            migrationBuilder.DropTable(
+                name: "SubjectBlockTypes");
 
             migrationBuilder.DropTable(
                 name: "Departments");

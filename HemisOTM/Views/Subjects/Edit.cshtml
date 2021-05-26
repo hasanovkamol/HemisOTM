@@ -6,9 +6,9 @@
 
 <div class="col-12">
     <div class="card card-header sameheight-item">
-        <a style="width:60px; height:30px" asp-action="Details" asp-controller="Subjects" asp-route-id="@Model.SubjectId" class="btn btn-primary">
+        <a style="width:60px; height:30px" asp-action="Index" asp-controller="Subjects" asp-route-id="@Model.SubjectId" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Edit subject</h3>
+        </a><h3>Fanni tahrirlash</h3>
         <div class="card-header">
             <div class="row">
                 <div class="align-items-center">
@@ -26,41 +26,134 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Lecture" class="control-label"></label>
-                            <input asp-for="Lecture" class="form-control" />
-                            <span asp-validation-for="Lecture" class="text-danger"></span>
+                            <label class="control-label">Fan bo'limni tanlang</label>
+                            <select asp-for="SubjectBlockTypeId" class="form-control" asp-items="ViewBag.SubjectBlock"></select>
+                            <br />
+                            <a class="btn btn-primary-outline" asp-controller="SubjectBlockTypes" asp-action="Create">Yangi fan bo'limni yaratish</a>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr class="table-active">
+
+                                    <td>
+                                        <label asp-for="Lecture" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <label asp-for="Practical" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <label asp-for="Laboratory" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <label asp-for="Seminar" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <label asp-for="CourseWork" class="control-label"></label>
+                                    </td>
+                                    <td>
+                                        <label asp-for="IndependentEducation" class="control-label"></label>
+                                    </td>
+                                </tr>
+                                <tr class="table-hover">
+
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="Lecture"  min="0" class="form-control" />
+                                            <span asp-validation-for="Lecture" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="Practical"  min="0" class="form-control" />
+                                            <span asp-validation-for="Practical" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="Laboratory"  min="0" class="form-control" />
+                                            <span asp-validation-for="Laboratory" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="Seminar"  min="0" class="form-control" />
+                                            <span asp-validation-for="Seminar" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="CourseWork" min="0" class="form-control" />
+                                            <span asp-validation-for="CourseWork" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input asp-for="IndependentEducation"  min="0" class="form-control" />
+                                            <span asp-validation-for="IndependentEducation" class="text-danger"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="form-group">
+                            <table class="table">
+                                <thead>
+                                    <tr class="table-active">
+                                        <td width="110">
+                                        </td>
+                                        <td>
+                                            1-kurs
+                                        </td>
+                                        <td>
+                                            2-kurs
+                                        </td>
+                                        <td>
+                                            3-kurs
+                                        </td>
+                                        <td>
+                                            4-kurs
+                                        </td>
+                                    </tr>
+                                    <tr class="table-hover">
+                                        <td>
+                                            1-semester
+                                        </td>
+                                        <td>
+                                            <input asp-for="OneOne" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="TwoOne" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="ThreeOne" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="FourOne" min="0"  class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr class="table-hover">
+                                        <td>
+                                            2-semester
+                                        </td>
+                                        <td>
+                                            <input asp-for="OneTwo" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="TwoTwo" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="ThreeTwo" min="0"  class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="FourTwo" min="0"  class="form-control" />
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Practical" class="control-label"></label>
-                            <input asp-for="Practical" class="form-control" />
-                            <span asp-validation-for="Practical" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Laboratory" class="control-label"></label>
-                            <input asp-for="Laboratory" class="form-control" />
-                            <span asp-validation-for="Laboratory" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Seminar" class="control-label"></label>
-                            <input asp-for="Seminar" class="form-control" />
-                            <span asp-validation-for="Seminar" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CourseWork" class="control-label"></label>
-                            <input asp-for="CourseWork" class="form-control" />
-                            <span asp-validation-for="CourseWork" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="IndependentEducation" class="control-label"></label>
-                            <input asp-for="IndependentEducation" class="form-control" />
-                            <span asp-validation-for="IndependentEducation" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="AmountofCredit" class="control-label"></label>
-                            <input asp-for="AmountofCredit" class="form-control" />
-                            <span asp-validation-for="AmountofCredit" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                            <a class="btn btn-warning" asp-action="Index" >Back to List</a>
                             <input type="submit" value="Save" class="btn btn-primary" />
                         </div>
                     </form>

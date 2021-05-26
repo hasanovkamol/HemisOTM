@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataModelEntity.Entity
@@ -11,6 +12,7 @@ namespace DataModelEntity.Entity
         public int SubjectId { get; set; }
         [Display(Name = "Fanning malakaviy kodi")]
         public string SubjectCode { get; set; }
+        [Display(Name = "Fan nomi")]
         public string Name { get; set; }
         [Display(Name="Ma'ruza")]
         public int Lecture { get; set; }
@@ -23,9 +25,19 @@ namespace DataModelEntity.Entity
         [Display(Name = "Kurs ishi")]
         public int CourseWork { get; set; }
         [Display(Name = "Mustaqil ta'lim")]
-        public string IndependentEducation { get; set; }
-        [Display(Name = "Kredit miqdori")]
-        public int AmountofCredit { get; set; }
+        public int IndependentEducation { get; set; }
+       
+        public int OneOne { get; set; }
+        public int OneTwo { get; set; }
+        public int TwoOne { get; set; }
+        public int TwoTwo { get; set; }
+        public int ThreeOne { get; set; }
+        public int ThreeTwo { get; set; }
+        public int FourOne { get; set; }
+        public int FourTwo { get; set; }
+
+        public SubjectBlockType SubjectBlockType { get; set; }
+        public int SubjectBlockTypeId { get; set; }
         public List<HarvestPlan> HarvestPlans { get; set; }
 
 

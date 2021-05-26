@@ -17,7 +17,6 @@ namespace DataModelEntity.Entity
         public Subject GetSubject { get; set; }
         public int GrupId { get; set; }
         public Grup Grups { get; set; }
-        public int BlockTypeId { get; set; }
-        public SubjectBlockType SubjectBlockType { get; set; }
+      
     }
 }

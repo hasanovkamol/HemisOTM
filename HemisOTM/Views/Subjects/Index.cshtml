@@ -3,459 +3,66 @@
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-    #rotate {
-        text-align: center;
-        max-width:30px;
-        white-space: nowrap;
-        vertical-align: central;
-        -moz-transform: rotate(-90.0deg); /* FF3.5+ */
-        -o-transform: rotate(-90.0deg); /* Opera 10.5 */
-        -webkit-transform: rotate(-90.0deg); /* Saf3.1+, Chrome */
-        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083); /* IE6,IE7 */
-        -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)"; /* IE8 */
-    }
-    #alignCenter {
-        text-align: center;
-        align-content: center;
-        vertical-align: central;
-    }
-    
-   
-</style>
+<div class="col-sm-12">
+    <div class="card card-header sameheight-item">
+        <div class="card-header">
+            <div class="header-block">
+                <h3 class="title">
+                    <label class="nounderline">
+                        <i class="fa fa-pencil-square-o"></i> Fanlar
+                    </label>
+                </h3>
+            </div>
+            <form asp-action="Index" method="get" class="header-block pull-right">
+                <div>
+                    <label class="search">
+                        <i class="fa fa-search search-icon"> </i>
+                        <input type="text" class="search-input" name="SearchString" placeholder=" Search..." />
+                        <a asp-action="Create" class="btn btn-primary">
+                            <i class="fa fa-plus-square"></i>
+                            Qo'shish
+                        </a>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SubjectCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Fon bo'limi
+                    </th>
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectBlockType.Name)
+                        </td>
+                        <td>
+                            <a asp-action="Details" class="fa fa-eyedropper" asp-route-id="@item.SubjectId"></a> 
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-            <div class="col-12">
-                <div class="card card-header sameheight-item">
-                    <div class="card-header">
-                        <div class="header-block">
-                            <h3 class="title">
-                                <label class="nounderline">
-                                    <i class="fa fa-pencil-square-o"></i> Subjects
-                                </label>
-                            </h3>
-                        </div>
-                        <form asp-action="Index" method="get" class="header-block pull-right">
-                            <div>
-                                <label class="search">
-                                    <i class="fa fa-search search-icon"> </i>
-                                    <input type="text" class="search-input" name="SearchString" placeholder=" Search..." />
-                                    <a asp-action="Create" class="btn btn-primary">
-                                        <i class="fa fa-plus-square"></i>
-                                        Create
-                                    </a>
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    <table id="alignCenter">
-                        <tbody class="table-bordered">
-                            <tr>
-                                <td style="width:30px;" rowspan="8">
-                                    <p>Т/р</p>
-                                </td>
-                                <td id="rotate" rowspan="8">
-                                    Фаннинг малакавий коди
-                                </td>
-                                <td rowspan="8">
-                                    Укув фанлари, блоклар ва фаолият турларининг номлари
-                                </td>
-                                <td colspan="9">
-                                    Талабанинг укув юкламаси, соатларда
-                                </td>
-                                <td colspan="8">
-                                    Соатларнинг курсб семестр ва хафталар буйнча татtспнотп
-                                </td>
-                                <td colspan="8">
-                                    Кредитларнинг курсб семестр ва &nbsp;хафталар буйнча татtспнотп
-                                </td>
-                                <td id="rotate" colspan="2" rowspan="7">
-                                        Жами кредитлар
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="rotate" colspan="2" rowspan="6">
-                                    Умумий юклама хажми
-                                </td>
-                                <td colspan="6" rowspan="2">
-                                    Аудитория машгулщелар, соатларда
-                                </td>
-                                <td id="rotate" rowspan="7">
-                                    Мустакил тальлим
-                                </td>
-                                <td colspan="2">
-                                    <p>1-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>2-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>3-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>4-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>1-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>2-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>3-курс</p>
-                                </td>
-                                <td colspan="2">
-                                    <p>4-курс</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8">
-                                    <p>Курслярдагн хлфталар сони</p>
-                                </td>
-                                <td colspan="8">
-                                    <p>Курслардаги хафталар сони</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="rotate" rowspan="5">
-                                    Жами
-                                </td>
-                                <td id="rotate" rowspan="5">
-                                    Маьруза
-                                </td>
-                                <td id="rotate" rowspan="5">
-                                    Амалий
-                                </td>
-                                <td id="rotate" rowspan="5">
-                                    Лаборатория
-                                </td>
-                                <td id="rotate" rowspan="5">
-                                    Семинар
-                                </td>
-                                <td id="rotate" rowspan="5">
-                                    Курс иши
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    37
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    40
-                                </td>
-                                <td colspan="2">
-                                    37
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8">
-                                    <p>Семестрлар</p>
-                                </td>
-                                <td colspan="8">
-                                    <p>Семестрлар</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>1</p>
-                                </td>
-                                <td>
-                                    <p>2</p>
-                                </td>
-                                <td>
-                                    <p>3</p>
-                                </td>
-                                <td>
-                                    <p>4</p>
-                                </td>
-                                <td>
-                                    <p>5</p>
-                                </td>
-                                <td>
-                                    <p>6</p>
-                                </td>
-                                <td>
-                                    <p>7</p>
-                                </td>
-                                <td>
-                                    <p>8</p>
-                                </td>
-                                <td>
-                                    <p>1</p>
-                                </td>
-                                <td>
-                                    <p>2</p>
-                                </td>
-                                <td>
-                                    <p>3</p>
-                                </td>
-                                <td>
-                                    <p>4</p>
-                                </td>
-                                <td>
-                                    <p>5</p>
-                                </td>
-                                <td>
-                                    <p>6</p>
-                                </td>
-                                <td>
-                                    <p>7</p>
-                                </td>
-                                <td>
-                                    <p>8</p>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td colspan="8">
-                                    <p>Сместрдаги аудитория машущтлар хафталариниг сони</p>
-                                </td>
-                                <td colspan="8">
-                                    <p>Кредит таксимоти</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:30px">
-                                    соат
-                                </td>
-                                <td style="width:30px;">
-                                    %
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    30
-                                </td>
-                                <td>
-                                    240
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    1
-                                </td>
-                                <td></td>
-                                <td>
-                                    2
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                                <td>
-                                    4
-                                </td>
-                                <td>
-                                    5
-                                </td>
-                                <td>
-                                    6
-                                </td>
-                                <td>
-                                    7
-                                </td>
-                                <td>
-                                    8
-                                </td>
-                                <td>
-                                    9
-                                </td>
-                                <td>
-                                    10
-                                </td>
-                                <td>
-                                    11
-                                </td>
-                                <td>
-                                    12
-                                </td>
-                                <td>
-                                    13
-                                </td>
-                                <td>
-                                    14
-                                </td>
-                                <td>
-                                    15
-                                </td>
-                                <td>
-                                    16
-                                </td>
-                                <td>
-                                    17
-                                </td>
-                                <td>
-                                    18
-                                </td>
-                                <td>
-                                    19
-                                </td>
-                                <td>
-                                    20
-                                </td>
-                                <td>
-                                    21
-                                </td>
-                                <td>
-                                    22
-                                </td>
-                                <td>
-                                    23
-                                </td>
-                                <td>
-                                    24
-                                </td>
-                                <td>
-                                    25
-                                </td>
-                                <td>
-                                    26
-                                </td>
-                                <td>
-                                    27
-                                </td>
-                                <td>
-                                    28
-                                </td>
-                            </tr>
-
-                            @foreach (var item in Model)
-                            {
-                                @*@{ int sumhour = 0; }
-
-                                    @sumhour= @item.Lecture + @item.Practical + @item.Laboratory + @item.Seminar + @item.CourseWork;*@
-
-                        <tr>
-                            <td>
-                                @item.SubjectId
-                            </td>
-                            <td>
-                                @item.SubjectCode
-                            </td>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @*@sumhour*@
-                            </td>
-                            <td>
-                                @*@sumhour*@
-                            </td>
-                            <td>
-                                @item.Lecture
-                            </td>
-                            <td>
-                                @item.Practical
-                            </td>
-                            <td>
-                                @item.Laboratory
-                            </td>
-                            <td>
-                                @item.Seminar
-                            </td>
-                            <td>
-                                @item.CourseWork
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-
-                            <td></td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                                <a  asp-action="Details" class="fa fa-eye" asp-route-id="@item.SubjectId"></a>
-                            </td>
-                        </tr>
-                            }
-                        </tbody>
-                    </table>
-           </div>
- </div>
 
