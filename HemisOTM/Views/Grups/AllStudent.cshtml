@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DataModelEntity.Entity.Grup>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="col-12">
+    <div class="card card-header sameheight-item">
+
+        <div class="card-header">
+            <div class="header-block">
+                <a style="width:60px; height:30px" asp-action="Index" asp-controller="Grups" class="btn btn-primary">
+                    <i class="fa fa-backward"></i>
+                </a>
+                <h3 class="title">
+                    
+                    <label class="nounderline">
+                         @ViewData["DirectionId"] yo'nalish talabalari
+                    </label>
+                </h3>
+            </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="table-active">
+                        <th>
+                            Ism
+                        </th>
+                        <th>
+                            Familya
+                        </th>
+                        <th>
+                            Otasini ismi
+                        </th>
+                        <th>
+                            Yo'nalish
+                        </th>
+                        <th>
+                            Kurs
+                        </th>
+                        <th>
+                            Grup nomi
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.student)
+                    {
+                        <tr class="table-hover">
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Surname
+                            </td>
+                            <td>
+                                @item.Middilname
+                            </td>
+                            <td>
+                                @item.GetDirection.Name
+                            </td>
+                            <td>
+                                @item.Course
+                            </td>
+                            <td>
+                                @item.GrupName
+                            </td>
+                            
+                        </tr>
+                    }
+                </tbody>
+            </table>
+       
+    </div>
+</div>

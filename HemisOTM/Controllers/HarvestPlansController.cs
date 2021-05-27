@@ -17,13 +17,12 @@ namespace HemisOTM.Controllers
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.HarvestPlans.Include(h => h.subjectTraingPlans).Include(h => h.GetTeacher).Include(h => h.Grups);
+            var entityDbContext = _context.HarvestPlans.Include(h => h.GetTeacher).Include(h => h.Grups);
             return View(await entityDbContext.ToListAsync());
         }
-
+         
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,7 +31,6 @@ namespace HemisOTM.Controllers
             }
 
             var harvestPlan = await _context.HarvestPlans
-                .Include(h => h.subjectTraingPlans)
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
@@ -45,16 +43,13 @@ namespace HemisOTM.Controllers
         }
         public IActionResult Create()
         {
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
-            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId");
-            //ViewData["Department"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId");
+            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x=>x.isPranet==true), "Name", "GrupId");
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HarvestPlanId,Name,Depatment,TeacherId,SubjectId,GrupId,BlockTypeId")] HarvestPlan harvestPlan)
+        public async Task<IActionResult> Create([Bind("HarvestPlanId,Name,DepatmentId,TeacherId,GrupId")] HarvestPlan harvestPlan)
         {
             if (ModelState.IsValid)
             {
@@ -62,12 +57,10 @@ namespace HemisOTM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
-            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
+            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == true), "Name", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
-
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,15 +73,13 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HarvestPlanId,Name,Depatment,TeacherId,SubjectId,GrupId,BlockTypeId")] HarvestPlan harvestPlan)
+        public async Task<IActionResult> Edit(int id, [Bind("HarvestPlanId,Name,DepatmentId,TeacherId,GrupId")] HarvestPlan harvestPlan)
         {
             if (id != harvestPlan.HarvestPlanId)
             {
@@ -115,12 +106,10 @@ namespace HemisOTM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SubjectId"] = new SelectList(_context.Subjects, "SubjectId", "SubjectCode");
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "Name");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
             ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
         }
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,7 +118,6 @@ namespace HemisOTM.Controllers
             }
 
             var harvestPlan = await _context.HarvestPlans
-                .Include(h => h.subjectTraingPlans)
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
@@ -140,7 +128,6 @@ namespace HemisOTM.Controllers
 
             return View(harvestPlan);
         }
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

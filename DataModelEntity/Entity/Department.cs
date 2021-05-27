@@ -12,6 +12,7 @@ namespace DataModelEntity.Entity
         public int DepartmentId { get; set; }
         public string Name { get; set; }
         public int FacultetId { get; set; }
+        public List<HarvestPlan> GetHarvestPlans { get; set; }
         public Facultet GetFacultet { get; set; }
       
     }

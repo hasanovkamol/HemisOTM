@@ -15,6 +15,8 @@ namespace DataModelEntity.Entity
         [ForeignKey("DirectId")]
         public int DirectId { get; set; }
         public Direction DirectionList { get; set; }
+        [Display(Name = "Umumiy grupa")]
+        public bool isPranet { get; set; }
         public List<HarvestPlan> HarvestPlans { get; set; }
 
     }

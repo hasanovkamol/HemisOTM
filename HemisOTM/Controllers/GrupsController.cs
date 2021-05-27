@@ -50,18 +50,32 @@ namespace HemisOTM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GrupId,Name,DirectId")] Grup grup)
+        public async Task<IActionResult> Create([Bind("GrupId,Name,DirectId,isPranet")] Grup grup)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(grup);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (grup.isPranet)
+                {
+                    if(_context.Grups.FirstOrDefault(x=>x.DirectId==grup.DirectId)==null)
+                    {
+                        _context.Add(grup);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                   
+                }
+                else
+                {
+                    _context.Add(grup);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
             }
             ViewData["DirectionId"] = new SelectList(_context.Directions, "DirectionId", "Name");
             return View(grup);
         }
-
+        [HttpGet]
         public async  Task<IActionResult> Select(int? Id)
         {
             if (Current.GrupId != 0)
@@ -69,14 +83,6 @@ namespace HemisOTM.Controllers
                 var student = _context.Students.Find(Id);
                 if(student!=null && Current!=null)
                 {
-                    //var group = new GroupStudentList()
-                    //{
-                    //    GetStudent = student,
-                    //    StudentId=student.StudentId,
-                    //    GrupId=Current.GrupId,
-                    //    GetGrup=Current
-                    //};
-                    //Current.GetGroupStudents.Add(group);
                     student.GrupName = Current.Name;
                     _context.Update(student);
                    await _context.SaveChangesAsync();
@@ -84,11 +90,73 @@ namespace HemisOTM.Controllers
             }
 
             var students =  _context.Students.Include(e=>e.GetDirection)
-                .Where(x => x.GrupName == null).ToArray();
+                .Where(x => x.GrupName == null && x.DirectionId==Current.DirectId).ToArray();
             ViewBag.student = students;
             return View("Edit", Current);
         }
-        private List<Student> students;
+        [HttpGet]
+        public async Task<IActionResult> DontSelect(int? Id)
+        {
+            if (Current.GrupId != 0)
+            {
+                var student = _context.Students.Find(Id);
+                if (student != null && Current != null)
+                {
+                    student.GrupName = null;
+                    _context.Update(student);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            var students = _context.Students.Include(e => e.GetDirection)
+                 .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
+            ViewBag.student = students;
+            return View("Edit", Current);
+        }
+        [HttpGet]
+        public  IActionResult AddedStudent()
+        {
+            if(Current==null)
+            {
+                return NotFound();
+            }
+            var students = _context.Students.Include(e => e.GetDirection)
+                  .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
+            ViewBag.student = students;
+            return View("Edit", Current);
+        }
+        [HttpGet]
+        public IActionResult DontAddedStudent()
+        {
+            if (Current == null)
+            {
+                return NotFound();
+            }
+            var students = _context.Students.Include(e => e.GetDirection)
+                  .Where(x => x.GrupName == null && x.DirectionId == Current.DirectId).ToArray();
+            ViewBag.student = students;
+            return View("Edit", Current);
+        }
+        [HttpGet]
+        public ActionResult AllStudent(int? id)
+        {
+            var grup = _context.Grups.Include(e => e.DirectionList)
+               .ToList().Find(x => x.GrupId == id);
+            if (grup.DirectId > 0)
+            {
+                var DirectionName = _context.Directions.Where(x => x.DirectionId == grup.DirectId).FirstOrDefault().Name;
+                ViewData["DirectionId"] = DirectionName;
+            }
+            else
+            {
+                ViewData["DirectionId"] = "Yo'nalish aniqlanmadi";
+            }
+            var students = _context.Students.Include(e => e.GetDirection)
+                  .Where(x=>x.DirectionId == grup.DirectId).ToArray();
+            ViewBag.student = students;
+            return View("AllStudent");
+        }
+
         public static Grup Current { get; set; }
         public async Task<IActionResult> Edit(int? id)
         {
@@ -104,9 +172,22 @@ namespace HemisOTM.Controllers
              
             }
             Current = grup;
-            var students =await _context.Students.Include(x => x.GetDirection)
-                .Where(x => x.GrupName == null)
-                .ToListAsync();
+            
+            if (grup.isPranet)
+            {
+                var students =await _context.Students.Include(x => x.GetDirection)
+                    .Where(x=>x.DirectionId==grup.DirectId)
+                    .ToListAsync();
+                ViewBag.student = students;
+            }
+            else
+            {
+                var students = _context.Students.Include(e => e.GetDirection)
+                  .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
+                ViewBag.student = students;
+            }
+            
+                
             if (grup.DirectId > 0)
             {
                 var DirectionName = _context.Directions.Where(x => x.DirectionId == grup.DirectId).FirstOrDefault().Name;
@@ -116,7 +197,7 @@ namespace HemisOTM.Controllers
             {
                 ViewData["DirectionId"] = "Yo'nalish aniqlanmadi";
             }
-            ViewBag.student = students;
+            
             return View(grup);
         }
 
