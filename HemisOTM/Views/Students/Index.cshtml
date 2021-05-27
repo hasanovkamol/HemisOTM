@@ -45,33 +45,46 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Course)
                     </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GrupName)
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Surname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Middilname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GetDirection.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Course)
-                        </td>
-                        <td>
-                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                             <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Middilname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GetDirection.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Course)
+                    </td>
+                    <td>
+                        @if (item.GrupName == null)
+                        {
+                        <p>Gruhga birlashmagan</p>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.GrupName)
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                        <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
