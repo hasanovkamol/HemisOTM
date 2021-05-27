@@ -10,8 +10,9 @@ namespace DataModelEntity.Entity
     {
         public EntityDbContext(DbContextOptions<EntityDbContext> options):base(options)
         {
-
+           
         }
+        
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Facultet> Facultets { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -21,6 +22,5 @@ namespace DataModelEntity.Entity
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectBlockType> SubjectBlockTypes { get; set; }
         public DbSet<HarvestPlan> HarvestPlans { get; set; }
-        public DbSet<GrupStudentList> GrupStudentLists { get; set; }
     }
 }

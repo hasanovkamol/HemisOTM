@@ -8,15 +8,15 @@
     <div class="card card-header sameheight-item">
         <a style="width:60px; height:30px" asp-action="Index" asp-controller="Grups" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Edit grup</h3><br />
+        </a><h3>@ViewData["DirectionId"]  yo'nalishni tanlanma fanlari uchun gruhlarni shakilantrish</h3><br />
         <div class="card-header">
             <div class="col-md-12">
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="GrupId" />
                     <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" />
+                        <label  class="control-label">Gruh nomi</label>
+                        <input asp-for="Name"  class="form-control" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -27,21 +27,21 @@
                     <thead>
                         <tr class="table-active">
                             <th>
-                                Name
+                                Ism
                             </th>
                             <th>
-                                Surname
+                                Familya
                             </th>
                             <th>
-                                Middil name
+                                Otasini ismi
                             </th>
                             <th>
-                                Direction
+                                Yo'nalish
                             </th>
                             <th>
-                                Course
+                                Kurs
                             </th>
-                            <th>Selec student</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +64,9 @@
                                     @item.Course
                                 </td>
                                 <td>
-                                    <a class="fa fa-check" asp-action="Selete" asp-controller="Grups" asp-route-id="@item.StudentId"> Select</a>
+                                   <a asp-controller="Grups" asp-action="Select">
+                                        @Html.ActionLink("Birlashtirmoq", "Select", new { Id = item.StudentId })
+                                    </a>
                                 </td>
                             </tr>
                         }

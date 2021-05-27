@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DataModelEntity.Entity
@@ -17,6 +18,8 @@ namespace DataModelEntity.Entity
         public Direction GetDirection { get; set; }
         public int DirectionId { get; set; }
         public int Course { get; set; }
+        public string GrupName { get; set; }
+       
 
     }
 }

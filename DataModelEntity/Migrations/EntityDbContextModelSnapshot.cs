@@ -79,30 +79,20 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DirectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DirectionListDirectionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GrupId");
 
+                    b.HasIndex("DirectionListDirectionId");
+
                     b.ToTable("Grups");
-                });
-
-            modelBuilder.Entity("DataModelEntity.Entity.GrupStudentList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GrupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GrupStudentLists");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.HarvestPlan", b =>
@@ -151,6 +141,9 @@ namespace DataModelEntity.Migrations
                     b.Property<int>("DirectionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("GrupName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Middilname")
                         .HasColumnType("nvarchar(max)");
 
@@ -184,6 +177,30 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IndependentEducation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KFourOne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KFourTwo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KOneOne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KOneTwo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KThreeOne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KThreeTwo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KTwoOne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KTwoTwo")
                         .HasColumnType("int");
 
                     b.Property<int>("Laboratory")
@@ -486,6 +503,15 @@ namespace DataModelEntity.Migrations
                     b.Navigation("GetFacultet");
                 });
 
+            modelBuilder.Entity("DataModelEntity.Entity.Grup", b =>
+                {
+                    b.HasOne("DataModelEntity.Entity.Direction", "DirectionList")
+                        .WithMany("GetGrups")
+                        .HasForeignKey("DirectionListDirectionId");
+
+                    b.Navigation("DirectionList");
+                });
+
             modelBuilder.Entity("DataModelEntity.Entity.HarvestPlan", b =>
                 {
                     b.HasOne("DataModelEntity.Entity.Grup", "Grups")
@@ -599,6 +625,8 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.Direction", b =>
                 {
+                    b.Navigation("GetGrups");
+
                     b.Navigation("Students");
                 });
 

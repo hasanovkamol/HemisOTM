@@ -43,12 +43,14 @@ namespace HemisOTM.Controllers
 
          public IActionResult Create()
         {
-           return View();
+            Current = new Grup();
+            ViewData["DirectionId"] = new SelectList(_context.Directions, "DirectionId", "Name");
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GrupId,Name")] Grup grup)
+        public async Task<IActionResult> Create([Bind("GrupId,Name,DirectId")] Grup grup)
         {
             if (ModelState.IsValid)
             {
@@ -56,30 +58,64 @@ namespace HemisOTM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           return View(grup);
+            ViewData["DirectionId"] = new SelectList(_context.Directions, "DirectionId", "Name");
+            return View(grup);
         }
-        public void Select(int? StudentId)
-        {
-            if (GrupId != 0)
-            {
 
+        public async  Task<IActionResult> Select(int? Id)
+        {
+            if (Current.GrupId != 0)
+            {
+                var student = _context.Students.Find(Id);
+                if(student!=null && Current!=null)
+                {
+                    //var group = new GroupStudentList()
+                    //{
+                    //    GetStudent = student,
+                    //    StudentId=student.StudentId,
+                    //    GrupId=Current.GrupId,
+                    //    GetGrup=Current
+                    //};
+                    //Current.GetGroupStudents.Add(group);
+                    student.GrupName = Current.Name;
+                    _context.Update(student);
+                   await _context.SaveChangesAsync();
+                }
             }
+
+            var students =  _context.Students.Include(e=>e.GetDirection)
+                .Where(x => x.GrupName == null).ToArray();
+            ViewBag.student = students;
+            return View("Edit", Current);
         }
-        private static int? GrupId=0;
+        private List<Student> students;
+        public static Grup Current { get; set; }
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null )
             {
                 return NotFound();
             }
-
-            var grup = await _context.Grups.FindAsync(id);
+            var grup = _context.Grups.Include(e=>e.DirectionList)
+                .ToList().Find(x=>x.GrupId==id);
             if (grup == null)
             {
                 return NotFound();
+             
             }
-            GrupId = id;
-            var students = _context.Students.Include(x => x.GetDirection).ToList();
+            Current = grup;
+            var students =await _context.Students.Include(x => x.GetDirection)
+                .Where(x => x.GrupName == null)
+                .ToListAsync();
+            if (grup.DirectId > 0)
+            {
+                var DirectionName = _context.Directions.Where(x => x.DirectionId == grup.DirectId).FirstOrDefault().Name;
+                ViewData["DirectionId"] = DirectionName;
+            }
+            else
+            {
+                ViewData["DirectionId"] = "Yo'nalish aniqlanmadi";
+            }
             ViewBag.student = students;
             return View(grup);
         }
@@ -97,7 +133,8 @@ namespace HemisOTM.Controllers
             {
                 try
                 {
-                    _context.Update(grup);
+                    Current.Name = grup.Name;
+                    _context.Update(Current);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

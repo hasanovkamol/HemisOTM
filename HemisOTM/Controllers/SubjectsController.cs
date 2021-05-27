@@ -44,7 +44,7 @@ namespace HemisOTM.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo")] Subject subject)
+        public async Task<IActionResult> Create([Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOneOneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo,KOneOne,KOneTwo,KTwoOne,KTwoTwo,KThreeOne,KThreeTwe,KFourOne,KFourTwo")] Subject subject)
         {                                                                                                                                               
             if (ModelState.IsValid)                                                                                                                     
             {                                                                                                                                           
@@ -72,7 +72,7 @@ namespace HemisOTM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo")] Subject subject)
+        public async Task<IActionResult> Edit(int id, [Bind("SubjectId,SubjectCode,Name,Lecture,Practical,Laboratory,Seminar,CourseWork,SubjectBlockTypeId,IndependentEducation,OneOne,OneTwo,TwoOne,TwoTwo,ThreeOne,ThreeTwe,FourOne,FourTwo,KOneOne,KOneTwo,KTwoOne,KTwoTwo,KThreeOne,KThreeTwe,KFourOne,KFourTwo")] Subject subject)
         {
             if (id != subject.SubjectId)
             {

@@ -36,6 +36,15 @@ namespace DataModelEntity.Entity
         public int FourOne { get; set; }
         public int FourTwo { get; set; }
 
+        public int KOneOne { get; set; }
+        public int KOneTwo { get; set; }
+        public int KTwoOne { get; set; }
+        public int KTwoTwo { get; set; }
+        public int KThreeOne { get; set; }
+        public int KThreeTwo { get; set; }
+        public int KFourOne { get; set; }
+        public int KFourTwo { get; set; }
+
         public SubjectBlockType SubjectBlockType { get; set; }
         public int SubjectBlockTypeId { get; set; }
         public List<HarvestPlan> HarvestPlans { get; set; }
