@@ -20,7 +20,7 @@ namespace HemisOTM.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.HarvestPlans.Include(h => h.GetSubject).Include(h => h.GetTeacher).Include(h => h.Grups);
+            var entityDbContext = _context.HarvestPlans.Include(h => h.subjectTraingPlans).Include(h => h.GetTeacher).Include(h => h.Grups);
             return View(await entityDbContext.ToListAsync());
         }
 
@@ -32,7 +32,7 @@ namespace HemisOTM.Controllers
             }
 
             var harvestPlan = await _context.HarvestPlans
-                .Include(h => h.GetSubject)
+                .Include(h => h.subjectTraingPlans)
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
@@ -129,7 +129,7 @@ namespace HemisOTM.Controllers
             }
 
             var harvestPlan = await _context.HarvestPlans
-                .Include(h => h.GetSubject)
+                .Include(h => h.subjectTraingPlans)
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);

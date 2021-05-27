@@ -26,7 +26,9 @@ namespace DataModelEntity.Entity
         public int CourseWork { get; set; }
         [Display(Name = "Mustaqil ta'lim")]
         public int IndependentEducation { get; set; }
-       
+
+        public ICollection<SubjectTraingPlan> subjectTraingPlans { get; set; }
+
         public int OneOne { get; set; }
         public int OneTwo { get; set; }
         public int TwoOne { get; set; }

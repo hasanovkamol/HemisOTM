@@ -13,8 +13,7 @@ namespace DataModelEntity.Entity
         public string Depatment { get; set; }
         public int TeacherId { get; set; }
         public Teacher GetTeacher { get; set; }
-        public int SubjectId { get; set; }
-        public Subject GetSubject { get; set; }
+        public ICollection<SubjectTraingPlan> subjectTraingPlans { get; set; }
         public int GrupId { get; set; }
         public Grup Grups { get; set; }
       
