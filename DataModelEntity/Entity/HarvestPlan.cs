@@ -8,11 +8,10 @@ namespace DataModelEntity.Entity
 {
     public class HarvestPlan
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HarvestPlanId { get; set; }
         [Display(Name="O'quv reja nomi")]
         public string Name { get; set; }
-        [ForeignKey("DepatmentId")]
         public int DepatmentId { get; set; }
         public Department GetDepartment { get; set; }
         public int TeacherId { get; set; }

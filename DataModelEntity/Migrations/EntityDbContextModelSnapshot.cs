@@ -279,19 +279,19 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HardvesPlanId")
+                    b.Property<int?>("GetHardvesPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("GetSubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectTraingPlanId");
 
-                    b.HasIndex("HardvesPlanId");
+                    b.HasIndex("GetHardvesPlanId");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("GetSubjectId");
 
-                    b.ToTable("SubjectTraingPlan");
+                    b.ToTable("SubjectTraingPlans");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -597,15 +597,11 @@ namespace DataModelEntity.Migrations
                 {
                     b.HasOne("DataModelEntity.Entity.HarvestPlan", "GetHarvestPlan")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("HardvesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GetHardvesPlanId");
 
                     b.HasOne("DataModelEntity.Entity.Subject", "GetSubject")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GetSubjectId");
 
                     b.Navigation("GetHarvestPlan");
 

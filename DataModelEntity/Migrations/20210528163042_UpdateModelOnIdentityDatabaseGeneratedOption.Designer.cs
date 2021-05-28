@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModelEntity.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20210527050515_ManyToManyForSubjectAndHarvestPlan")]
-    partial class ManyToManyForSubjectAndHarvestPlan
+    [Migration("20210528163042_UpdateModelOnIdentityDatabaseGeneratedOption")]
+    partial class UpdateModelOnIdentityDatabaseGeneratedOption
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,9 @@ namespace DataModelEntity.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isPranet")
+                        .HasColumnType("bit");
+
                     b.HasKey("GrupId");
 
                     b.HasIndex("DirectionListDirectionId");
@@ -104,8 +107,11 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Depatment")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepatmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GetDepartmentDepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GrupId")
                         .HasColumnType("int");
@@ -120,6 +126,8 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("HarvestPlanId");
+
+                    b.HasIndex("GetDepartmentDepartmentId");
 
                     b.HasIndex("GrupId");
 
@@ -273,19 +281,19 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HardvesPlanId")
+                    b.Property<int?>("GetHardvesPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("GetSubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectTraingPlanId");
 
-                    b.HasIndex("HardvesPlanId");
+                    b.HasIndex("GetHardvesPlanId");
 
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("GetSubjectId");
 
-                    b.ToTable("SubjectTraingPlan");
+                    b.ToTable("SubjectTraingPlans");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -538,6 +546,10 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.HarvestPlan", b =>
                 {
+                    b.HasOne("DataModelEntity.Entity.Department", "GetDepartment")
+                        .WithMany("GetHarvestPlans")
+                        .HasForeignKey("GetDepartmentDepartmentId");
+
                     b.HasOne("DataModelEntity.Entity.Grup", "Grups")
                         .WithMany("HarvestPlans")
                         .HasForeignKey("GrupId")
@@ -553,6 +565,8 @@ namespace DataModelEntity.Migrations
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("GetDepartment");
 
                     b.Navigation("GetTeacher");
 
@@ -585,15 +599,11 @@ namespace DataModelEntity.Migrations
                 {
                     b.HasOne("DataModelEntity.Entity.HarvestPlan", "GetHarvestPlan")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("HardvesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GetHardvesPlanId");
 
                     b.HasOne("DataModelEntity.Entity.Subject", "GetSubject")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GetSubjectId");
 
                     b.Navigation("GetHarvestPlan");
 
@@ -660,6 +670,11 @@ namespace DataModelEntity.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataModelEntity.Entity.Department", b =>
+                {
+                    b.Navigation("GetHarvestPlans");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Direction", b =>

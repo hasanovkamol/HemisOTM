@@ -61,8 +61,6 @@ namespace HemisOTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(harvestPlan);
-                await _context.SaveChangesAsync();
                 Allubject();
                 Current = harvestPlan;
                 return View("AddSubject");
@@ -75,8 +73,8 @@ namespace HemisOTM.Controllers
         {
             if (Current != null)
             {
-                _context.Update(Current);
-               await _context.SaveChangesAsync();
+                _context.Add(Current);
+                await _context.SaveChangesAsync();
                 return View("Index");
             }
             else
@@ -91,12 +89,13 @@ namespace HemisOTM.Controllers
         }
         private void AddedSubjectData()
         {
-            ViewData["isAdded"] = "true";
+           
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
-            if (Current != null)
+            if (Current.subjectTraingPlans != null)
             {
+                ViewData["isAdded"] = "true";
                 subject = subject
-                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.SubjectId == x.SubjectId) != null)
+                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.GetSubjectId == x.SubjectId) != null)
                     .ToList();
 
             }
@@ -105,10 +104,10 @@ namespace HemisOTM.Controllers
         private void DontAddedSubjectData()
         {
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
-            if(Current!=null)
+            if(Current.subjectTraingPlans!=null)
             {
                 subject = subject
-                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.SubjectId == x.SubjectId) == null)
+                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.GetSubjectId == x.SubjectId) == null)
                     .ToList();
                 
             }
@@ -139,7 +138,13 @@ namespace HemisOTM.Controllers
                 return NotFound();
             }
             
-            Current.subjectTraingPlans.Add(new SubjectTraingPlan() { SubjectId=subject.SubjectId,GetSubject=subject,HardvesPlanId=Current.HarvestPlanId,GetHarvestPlan=Current});
+            Current.subjectTraingPlans.Add(new SubjectTraingPlan() 
+            { 
+                GetSubjectId=subject.SubjectId,
+                GetSubject=subject,
+                GetHardvesPlanId=Current.HarvestPlanId,
+                GetHarvestPlan=Current
+            });
             DontAddedSubjectData();
             return View("AddSubject");
         }

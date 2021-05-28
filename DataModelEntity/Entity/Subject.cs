@@ -8,7 +8,7 @@ namespace DataModelEntity.Entity
 {
     public class Subject
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SubjectId { get; set; }
         [Display(Name = "Fanning malakaviy kodi")]
         public string SubjectCode { get; set; }

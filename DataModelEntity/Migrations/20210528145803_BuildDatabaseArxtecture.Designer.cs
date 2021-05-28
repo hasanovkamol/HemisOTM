@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModelEntity.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20210527062649_addColumnForGrupAndHarvestPlan")]
-    partial class addColumnForGrupAndHarvestPlan
+    [Migration("20210528145803_BuildDatabaseArxtecture")]
+    partial class BuildDatabaseArxtecture
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -281,10 +281,16 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HardvesPlanId")
+                    b.Property<int?>("GetHardvesPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("GetSubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HardvesPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectTraingPlanId");
@@ -599,15 +605,11 @@ namespace DataModelEntity.Migrations
                 {
                     b.HasOne("DataModelEntity.Entity.HarvestPlan", "GetHarvestPlan")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("HardvesPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HardvesPlanId");
 
                     b.HasOne("DataModelEntity.Entity.Subject", "GetSubject")
                         .WithMany("subjectTraingPlans")
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubjectId");
 
                     b.Navigation("GetHarvestPlan");
 
