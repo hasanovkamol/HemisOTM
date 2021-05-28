@@ -19,7 +19,10 @@ namespace HemisOTM.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.HarvestPlans.Include(h => h.GetTeacher).Include(h => h.Grups);
+            var entityDbContext = _context.HarvestPlans
+                .Include(h => h.GetTeacher)
+                .Include(h => h.Grups)
+                .Include(h => h.GetDepartment);
             return View(await entityDbContext.ToListAsync());
         }
          
@@ -43,8 +46,13 @@ namespace HemisOTM.Controllers
         }
         public IActionResult Create()
         {
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId");
-            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x=>x.isPranet==true), "Name", "GrupId");
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName");
+            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x=>x.isPranet==true), "GrupId", "Name");
+            ViewData["DepartmentName"] = new SelectList(_context.Departments, "DepartmentId", "Name");
+            var subject = _context.Subjects.Include(s=>s.SubjectBlockType).ToList();
+            ViewData["SujcetList"] = subject;
+            Current = new HarvestPlan();
+            Current.subjectTraingPlans = new List<SubjectTraingPlan>();
             return View();
         }
         [HttpPost]
@@ -55,11 +63,85 @@ namespace HemisOTM.Controllers
             {
                 _context.Add(harvestPlan);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                Allubject();
+                Current = harvestPlan;
+                return View("AddSubject");
             }
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
             ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == true), "Name", "GrupId", harvestPlan.GrupId);
             return View(harvestPlan);
+        }
+        public async Task<IActionResult> SaveSubject()
+        {
+            if (Current != null)
+            {
+                _context.Update(Current);
+               await _context.SaveChangesAsync();
+                return View("Index");
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        private void Allubject()
+        {
+            var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
+            ViewData["SujcetList"] = subject;
+        }
+        private void AddedSubjectData()
+        {
+            ViewData["isAdded"] = "true";
+            var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
+            if (Current != null)
+            {
+                subject = subject
+                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.SubjectId == x.SubjectId) != null)
+                    .ToList();
+
+            }
+            ViewData["SujcetList"] = subject;
+        }
+        private void DontAddedSubjectData()
+        {
+            var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
+            if(Current!=null)
+            {
+                subject = subject
+                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.SubjectId == x.SubjectId) == null)
+                    .ToList();
+                
+            }
+            ViewData["SujcetList"] = subject;
+        }
+        public IActionResult AddedSubject()
+        {
+            AddedSubjectData();
+            return View("AddSubject");
+        }
+        public IActionResult DontAddedSubject()
+        {
+            DontAddedSubjectData();
+            return View("AddSubject");
+        }
+        private static HarvestPlan Current;
+        public async Task<IActionResult> Select(int? id)
+        {
+            var subjects = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
+            var subject = subjects
+                .Where(x=>x.SubjectId==id).FirstOrDefault();
+            if (Current.subjectTraingPlans==null)
+            {
+                Current.subjectTraingPlans = new List<SubjectTraingPlan>();
+            }
+            if(subject==null)
+            {
+                return NotFound();
+            }
+            
+            Current.subjectTraingPlans.Add(new SubjectTraingPlan() { SubjectId=subject.SubjectId,GetSubject=subject,HardvesPlanId=Current.HarvestPlanId,GetHarvestPlan=Current});
+            DontAddedSubjectData();
+            return View("AddSubject");
         }
         public async Task<IActionResult> Edit(int? id)
         {

@@ -1,0 +1,88 @@
+﻿@model DataModelEntity.Entity.HarvestPlan
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="col-12">
+    <div class="card card-block sameheight-item">
+        <div class="title-block">
+            <div class="header-block">
+                <h2 class="title">Yangi o'quv reja</h2>
+            </div>
+        </div>
+        <form>
+            <div class="card card-header">
+                <a asp-action="DontAddedSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                    <i class="fa fa-plus-square"></i>
+                    Qo'shish
+                </a>
+                <a asp-action="AddedSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                    <i class="fa fa-database"></i>
+                    Qo'shilgan
+                </a>
+                <a asp-action="SaveSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                    <i class="fa fa-save"></i>
+                    Ma'lumotlarni saqlash
+                </a>
+            </div>
+        </form>
+        <h3>Qo'shilmagan fanlar ro'yxati</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Fan kodi
+                    </th>
+                    <th>
+                        Fan nomi
+                    </th>
+                    <th>
+                        Fon bo'limi
+                    </th>
+                    <th width="110"></th>
+                    <th width="140"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in ViewBag.SujcetList)
+                {
+                    <tr>
+                        <td>
+                            @item.SubjectCode
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.SubjectBlockType.Name
+                        </td>
+                        <td>
+                            <a class="fa fa-eyedropper" asp-action="Details" asp-controller="Subjects" asp-route-id="@item.SubjectId"> Ma'lumot</a>
+
+                        </td>
+                        <td>
+                            @if (ViewBag.isAdded == null)
+                            {
+                                <a class="fa fa-check" asp-controller="Subjects" asp-action="Select">
+                                    @Html.ActionLink(" Birlashtirish", "Select", new { Id = item.SubjectId })
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="fa fa-close" asp-controller="Subjects" asp-action="Select">
+                                    @Html.ActionLink(" O'chrish", "Select", new { Id = item.SubjectId })
+                                </a>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

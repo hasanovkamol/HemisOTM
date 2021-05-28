@@ -10,7 +10,7 @@ namespace DataModelEntity.Entity
     {
         [Key]
         public int GrupId { get; set; }
-        [Display(Name="Grup name")]
+        [Display(Name="Gruh nomi")]
         public string Name { get; set; }
         [ForeignKey("DirectId")]
         public int DirectId { get; set; }

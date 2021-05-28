@@ -10,6 +10,7 @@ namespace DataModelEntity.Entity
         [Key]
         [Display(Name = "№")]
         public int DepartmentId { get; set; }
+        [Display(Name = "Kafedra nomi")]
         public string Name { get; set; }
         public int FacultetId { get; set; }
         public List<HarvestPlan> GetHarvestPlans { get; set; }

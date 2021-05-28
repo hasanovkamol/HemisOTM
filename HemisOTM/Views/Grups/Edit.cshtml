@@ -22,8 +22,6 @@
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
-                   
-
                 </form>
                 <form>
                     <div class="card card-header">
@@ -89,13 +87,13 @@
                                     @if (item.GrupName == null)
                                     {
                                         <a asp-controller="Grups" asp-action="Select">
-                                            @Html.ActionLink("Birlashtirmoq", "Select", new { Id = item.StudentId })
+                                            @Html.ActionLink(" Birlashtirmoq", "Select", new { Id = item.StudentId })
                                         </a>
                                     }
                                     else
                                     {
-                                        <a asp-controller="Grups" asp-action="DontSelect">
-                                            @Html.ActionLink("O'chrish", "DontSelect", new { Id = item.StudentId })
+                                        <a class="fa fa-close" asp-controller="Grups" asp-action="DontSelect">
+                                            @Html.ActionLink(" O'chrish", "DontSelect", new { Id = item.StudentId })
                                         </a>
                                     }
 

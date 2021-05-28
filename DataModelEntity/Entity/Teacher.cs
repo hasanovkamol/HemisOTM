@@ -21,5 +21,7 @@ namespace DataModelEntity.Entity
         [Display(Name= "Department name")]
         public Department GetDepartment { get; set; }
         public List<HarvestPlan> HarvestPlans { get; set; }
+        [Display(Name="Ma'sul (FIO)")]
+        public string FullName { get => this.Name + " " + this.Surname; }
     }
 }

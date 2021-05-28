@@ -10,15 +10,16 @@ namespace DataModelEntity.Entity
     {
         [Key]
         public int HarvestPlanId { get; set; }
+        [Display(Name="O'quv reja nomi")]
         public string Name { get; set; }
         [ForeignKey("DepatmentId")]
         public int DepatmentId { get; set; }
         public Department GetDepartment { get; set; }
         public int TeacherId { get; set; }
         public Teacher GetTeacher { get; set; }
-        public ICollection<SubjectTraingPlan> subjectTraingPlans { get; set; }
         public int GrupId { get; set; }
         public Grup Grups { get; set; }
       
+        public ICollection<SubjectTraingPlan> subjectTraingPlans { get; set; }
     }
 }
