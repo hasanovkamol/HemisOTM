@@ -19,6 +19,6 @@ namespace DataModelEntity.Entity
         public int GrupId { get; set; }
         public Grup Grups { get; set; }
       
-        public ICollection<SubjectTraingPlan> subjectTraingPlans { get; set; }
+        public ICollection<SubjectTraingPlan> Subjects { get; set; }
     }
 }

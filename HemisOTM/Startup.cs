@@ -1,11 +1,11 @@
 
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using DataModelEntity.Entity;
 
 namespace HemisOTM
@@ -25,7 +25,9 @@ namespace HemisOTM
             services.AddDbContext<EntityDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.EnableSensitiveDataLogging();
             });
+           // services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                .AddDefaultUI()

@@ -52,7 +52,7 @@ namespace HemisOTM.Controllers
             var subject = _context.Subjects.Include(s=>s.SubjectBlockType).ToList();
             ViewData["SujcetList"] = subject;
             Current = new HarvestPlan();
-            Current.subjectTraingPlans = new List<SubjectTraingPlan>();
+            Current.Subjects = new List<SubjectTraingPlan>();
             return View();
         }
         [HttpPost]
@@ -82,6 +82,13 @@ namespace HemisOTM.Controllers
                 return NotFound();
             }
         }
+        public  IActionResult Remove(int? Id)
+        {
+            if (Current == null) return NotFound();
+            Current.Subjects.Remove(Current.Subjects.First(x => x.SubjectId == Id));
+            AddedSubjectData();
+            return View("AddSubject");
+        }
         private void Allubject()
         {
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
@@ -91,11 +98,11 @@ namespace HemisOTM.Controllers
         {
            
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
-            if (Current.subjectTraingPlans != null)
+            if (Current.Subjects != null)
             {
                 ViewData["isAdded"] = "true";
                 subject = subject
-                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.GetSubjectId == x.SubjectId) != null)
+                    .Where(x => Current.Subjects.FirstOrDefault(p => p.SubjectId == x.SubjectId) != null)
                     .ToList();
 
             }
@@ -104,10 +111,10 @@ namespace HemisOTM.Controllers
         private void DontAddedSubjectData()
         {
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
-            if(Current.subjectTraingPlans!=null)
+            if(Current.Subjects!=null)
             {
                 subject = subject
-                    .Where(x => Current.subjectTraingPlans.FirstOrDefault(p => p.GetSubjectId == x.SubjectId) == null)
+                    .Where(x => Current.Subjects.FirstOrDefault(p => p.SubjectId == x.SubjectId) == null)
                     .ToList();
                 
             }
@@ -126,24 +133,24 @@ namespace HemisOTM.Controllers
         private static HarvestPlan Current;
         public async Task<IActionResult> Select(int? id)
         {
-            var subjects = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
+            var subjects =await _context.Subjects.Include(s => s.SubjectBlockType).ToListAsync();
             var subject = subjects
                 .Where(x=>x.SubjectId==id).FirstOrDefault();
-            if (Current.subjectTraingPlans==null)
+            if (Current.Subjects==null)
             {
-                Current.subjectTraingPlans = new List<SubjectTraingPlan>();
+                Current.Subjects = new List<SubjectTraingPlan>();
             }
             if(subject==null)
             {
                 return NotFound();
             }
             
-            Current.subjectTraingPlans.Add(new SubjectTraingPlan() 
+            Current.Subjects.Add(new SubjectTraingPlan() 
             { 
-                GetSubjectId=subject.SubjectId,
-                GetSubject=subject,
-                GetHardvesPlanId=Current.HarvestPlanId,
-                GetHarvestPlan=Current
+                Subject=subject,
+                SubjectId=subject.SubjectId,
+                HardvesPlanId=Current.HarvestPlanId,
+                HarvestPlan=Current
             });
             DontAddedSubjectData();
             return View("AddSubject");

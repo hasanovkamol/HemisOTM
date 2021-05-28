@@ -9,26 +9,34 @@
     <div class="card card-block sameheight-item">
         <div class="title-block">
             <div class="header-block">
-                <h2 class="title">Yangi o'quv reja</h2>
+                <h2 class="title">Yangi o'quv rejaning asosiy fanlar bilin birlashtiring</h2>
             </div>
         </div>
         <form>
             <div class="card card-header">
-                <a asp-action="DontAddedSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                <a asp-action="DontAddedSubject" asp-controller="HarvestPlans" class="btn btn-secondary">
                     <i class="fa fa-plus-square"></i>
                     Qo'shish
                 </a>
-                <a asp-action="AddedSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                <a asp-action="AddedSubject" asp-controller="HarvestPlans" class="btn btn-warning">
                     <i class="fa fa-database"></i>
                     Qo'shilgan
                 </a>
-                <a asp-action="SaveSubject" asp-controller="HarvestPlans" class="btn btn-primary">
+                <a asp-action="SaveSubject" asp-controller="HarvestPlans" class="btn btn-success">
                     <i class="fa fa-save"></i>
                     Ma'lumotlarni saqlash
                 </a>
             </div>
         </form>
-        <h3>Qo'shilmagan fanlar ro'yxati</h3>
+
+        @if (ViewBag.isAdded == null)
+        {
+            <h3>Birlashmagan fanlar ro'yxati</h3>
+        }
+        else
+        {
+            <h3>Birlashgan fanlar ro'yxati</h3>
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -73,8 +81,8 @@
                             }
                             else
                             {
-                                <a class="fa fa-close" asp-controller="Subjects" asp-action="Select">
-                                    @Html.ActionLink(" O'chrish", "Select", new { Id = item.SubjectId })
+                                <a class="fa fa-close" asp-controller="Subjects" asp-action="Remove">
+                                    @Html.ActionLink(" O'chrish", "Remove", new { Id = item.SubjectId })
                                 </a>
                             }
 

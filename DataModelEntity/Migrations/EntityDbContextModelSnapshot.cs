@@ -279,17 +279,17 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("GetHardvesPlanId")
+                    b.Property<int?>("HardvesPlanId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("GetSubjectId")
+                    b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("SubjectTraingPlanId");
 
-                    b.HasIndex("GetHardvesPlanId");
+                    b.HasIndex("HardvesPlanId");
 
-                    b.HasIndex("GetSubjectId");
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("SubjectTraingPlans");
                 });
@@ -595,17 +595,17 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.SubjectTraingPlan", b =>
                 {
-                    b.HasOne("DataModelEntity.Entity.HarvestPlan", "GetHarvestPlan")
-                        .WithMany("subjectTraingPlans")
-                        .HasForeignKey("GetHardvesPlanId");
+                    b.HasOne("DataModelEntity.Entity.HarvestPlan", "HarvestPlan")
+                        .WithMany("Subjects")
+                        .HasForeignKey("HardvesPlanId");
 
-                    b.HasOne("DataModelEntity.Entity.Subject", "GetSubject")
-                        .WithMany("subjectTraingPlans")
-                        .HasForeignKey("GetSubjectId");
+                    b.HasOne("DataModelEntity.Entity.Subject", "Subject")
+                        .WithMany("Subjects")
+                        .HasForeignKey("SubjectId");
 
-                    b.Navigation("GetHarvestPlan");
+                    b.Navigation("HarvestPlan");
 
-                    b.Navigation("GetSubject");
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -694,14 +694,14 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.HarvestPlan", b =>
                 {
-                    b.Navigation("subjectTraingPlans");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Subject", b =>
                 {
                     b.Navigation("HarvestPlans");
 
-                    b.Navigation("subjectTraingPlans");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.SubjectBlockType", b =>

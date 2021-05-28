@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModelEntity.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20210528145803_BuildDatabaseArxtecture")]
-    partial class BuildDatabaseArxtecture
+    [Migration("20210528184825_BuildModelDatabaseStructure")]
+    partial class BuildModelDatabaseStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -281,12 +281,6 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("GetHardvesPlanId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("GetSubjectId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("HardvesPlanId")
                         .HasColumnType("int");
 
@@ -299,7 +293,7 @@ namespace DataModelEntity.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("SubjectTraingPlan");
+                    b.ToTable("SubjectTraingPlans");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -603,17 +597,17 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.SubjectTraingPlan", b =>
                 {
-                    b.HasOne("DataModelEntity.Entity.HarvestPlan", "GetHarvestPlan")
-                        .WithMany("subjectTraingPlans")
+                    b.HasOne("DataModelEntity.Entity.HarvestPlan", "HarvestPlan")
+                        .WithMany("Subjects")
                         .HasForeignKey("HardvesPlanId");
 
-                    b.HasOne("DataModelEntity.Entity.Subject", "GetSubject")
-                        .WithMany("subjectTraingPlans")
+                    b.HasOne("DataModelEntity.Entity.Subject", "Subject")
+                        .WithMany("Subjects")
                         .HasForeignKey("SubjectId");
 
-                    b.Navigation("GetHarvestPlan");
+                    b.Navigation("HarvestPlan");
 
-                    b.Navigation("GetSubject");
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -702,14 +696,14 @@ namespace DataModelEntity.Migrations
 
             modelBuilder.Entity("DataModelEntity.Entity.HarvestPlan", b =>
                 {
-                    b.Navigation("subjectTraingPlans");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Subject", b =>
                 {
                     b.Navigation("HarvestPlans");
 
-                    b.Navigation("subjectTraingPlans");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.SubjectBlockType", b =>

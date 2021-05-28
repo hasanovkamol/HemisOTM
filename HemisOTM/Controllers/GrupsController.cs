@@ -88,11 +88,22 @@ namespace HemisOTM.Controllers
                    await _context.SaveChangesAsync();
                 }
             }
+            Select();
 
-            var students =  _context.Students.Include(e=>e.GetDirection)
-                .Where(x => x.GrupName == null && x.DirectionId==Current.DirectId).ToArray();
-            ViewBag.student = students;
+            SearchContent(Current);
             return View("Edit", Current);
+        }
+        private void Select()
+        {
+            var students = _context.Students.Include(e => e.GetDirection)
+              .Where(x => x.GrupName == null && x.DirectionId == Current.DirectId).ToArray();
+            ViewBag.student = students;
+        }
+        private void Selected()
+        {
+            var students = _context.Students.Include(e => e.GetDirection)
+                 .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
+            ViewBag.student = students;
         }
         [HttpGet]
         public async Task<IActionResult> DontSelect(int? Id)
@@ -106,11 +117,10 @@ namespace HemisOTM.Controllers
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
+               
             }
-
-            var students = _context.Students.Include(e => e.GetDirection)
-                 .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
-            ViewBag.student = students;
+            SearchContent(Current);
+            Selected();
             return View("Edit", Current);
         }
         [HttpGet]
@@ -120,9 +130,8 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            var students = _context.Students.Include(e => e.GetDirection)
-                  .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
-            ViewBag.student = students;
+            Selected();
+            SearchContent(Current);
             return View("Edit", Current);
         }
         [HttpGet]
@@ -132,9 +141,8 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            var students = _context.Students.Include(e => e.GetDirection)
-                  .Where(x => x.GrupName == null && x.DirectionId == Current.DirectId).ToArray();
-            ViewBag.student = students;
+            SearchContent(Current);
+            Select();
             return View("Edit", Current);
         }
         [HttpGet]
@@ -142,21 +150,26 @@ namespace HemisOTM.Controllers
         {
             var grup = _context.Grups.Include(e => e.DirectionList)
                .ToList().Find(x => x.GrupId == id);
-            if (grup.DirectId > 0)
-            {
-                var DirectionName = _context.Directions.Where(x => x.DirectionId == grup.DirectId).FirstOrDefault().Name;
-                ViewData["DirectionId"] = DirectionName;
-            }
-            else
-            {
-                ViewData["DirectionId"] = "Yo'nalish aniqlanmadi";
-            }
+            SearchContent(grup);
             var students = _context.Students.Include(e => e.GetDirection)
                   .Where(x=>x.DirectionId == grup.DirectId).ToArray();
             ViewBag.student = students;
             return View("AllStudent");
         }
-
+        public async Task<IActionResult> DeleteGrup()
+        {
+            if (Current == null) return NotFound();
+            var student = _context.Students.Where(x => x.GrupName == Current.Name).ToList();
+            foreach (var item in student)
+            {
+                item.GrupName = null;
+                _context.Update(item);
+                await _context.SaveChangesAsync();
+            }
+            _context.Remove(Current);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
         public static Grup Current { get; set; }
         public async Task<IActionResult> Edit(int? id)
         {
@@ -186,9 +199,14 @@ namespace HemisOTM.Controllers
                   .Where(x => x.GrupName == Current.Name && x.DirectionId == Current.DirectId).ToArray();
                 ViewBag.student = students;
             }
-            
-                
-            if (grup.DirectId > 0)
+
+
+            SearchContent(grup);
+            return View(grup);
+        }
+        private void SearchContent(Grup grup)
+        {
+            if (grup != null && grup.DirectId > 0)
             {
                 var DirectionName = _context.Directions.Where(x => x.DirectionId == grup.DirectId).FirstOrDefault().Name;
                 ViewData["DirectionId"] = DirectionName;
@@ -197,8 +215,6 @@ namespace HemisOTM.Controllers
             {
                 ViewData["DirectionId"] = "Yo'nalish aniqlanmadi";
             }
-            
-            return View(grup);
         }
 
         [HttpPost]

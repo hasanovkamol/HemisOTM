@@ -59,6 +59,7 @@ namespace HemisOTM.Controllers
                 await _context.SaveChangesAsync();
                 var departments = _context.Departments.Include(x => x.GetFacultet).ToList();
                 ViewBag.departments = departments;
+                ViewData["FacultetName"] = new SelectList(_context.Facultets, "FacultetID", "Name");
                 return View();
             }
             ViewData["FacultetName"] = new SelectList(_context.Facultets, "FacultetID", "Name");

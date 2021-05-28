@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataModelEntity.Migrations
 {
-    public partial class BuildDatabaseArxtecture : Migration
+    public partial class BuildModelDatabaseStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -368,27 +368,25 @@ namespace DataModelEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubjectTraingPlan",
+                name: "SubjectTraingPlans",
                 columns: table => new
                 {
                     SubjectTraingPlanId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GetSubjectId = table.Column<int>(type: "int", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: true),
-                    GetHardvesPlanId = table.Column<int>(type: "int", nullable: true),
-                    HardvesPlanId = table.Column<int>(type: "int", nullable: true)
+                    HardvesPlanId = table.Column<int>(type: "int", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubjectTraingPlan", x => x.SubjectTraingPlanId);
+                    table.PrimaryKey("PK_SubjectTraingPlans", x => x.SubjectTraingPlanId);
                     table.ForeignKey(
-                        name: "FK_SubjectTraingPlan_HarvestPlans_HardvesPlanId",
+                        name: "FK_SubjectTraingPlans_HarvestPlans_HardvesPlanId",
                         column: x => x.HardvesPlanId,
                         principalTable: "HarvestPlans",
                         principalColumn: "HarvestPlanId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_SubjectTraingPlan_Subjects_SubjectId",
+                        name: "FK_SubjectTraingPlans_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "SubjectId",
@@ -475,13 +473,13 @@ namespace DataModelEntity.Migrations
                 column: "SubjectBlockTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubjectTraingPlan_HardvesPlanId",
-                table: "SubjectTraingPlan",
+                name: "IX_SubjectTraingPlans_HardvesPlanId",
+                table: "SubjectTraingPlans",
                 column: "HardvesPlanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubjectTraingPlan_SubjectId",
-                table: "SubjectTraingPlan",
+                name: "IX_SubjectTraingPlans_SubjectId",
+                table: "SubjectTraingPlans",
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
@@ -511,7 +509,7 @@ namespace DataModelEntity.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "SubjectTraingPlan");
+                name: "SubjectTraingPlans");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
