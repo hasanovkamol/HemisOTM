@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataModelEntity.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HemisOTM.Controllers
 {
+    [Authorize]
     public class StudentsController : Controller
     {
         private readonly EntityDbContext _context;

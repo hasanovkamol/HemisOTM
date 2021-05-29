@@ -25,7 +25,7 @@ namespace HemisOTM.Controllers
         {
            return await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
-                .Include(h => h.Grups)
+                .Include(h => h.Grups).ThenInclude(g=>g.DirectionList)
                 .Include(h => h.GetDepartment)
                 .Include(h => h.Subjects).ThenInclude(s => s.Subject).ToListAsync();
         }
@@ -217,9 +217,11 @@ namespace HemisOTM.Controllers
             var harvestPlan = await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
+                
                 .Include(h => h.GetDepartment)
                 .Include(h => h.Subjects).ThenInclude(z=>z.Subject)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
+            
             if (harvestPlan == null)
             {
                 return NotFound();
@@ -251,13 +253,17 @@ namespace HemisOTM.Controllers
             var harvestPlan = await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
+                .ThenInclude(g => g.DirectionList)
                 .Include(h => h.GetDepartment)
                 .Include(h => h.Subjects).ThenInclude(s => s.Subject)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == Id);
+            var direction = _context.Directions.FirstOrDefault(x => x.DirectionId == harvestPlan.Grups.DirectId);
+            ViewData["direction"] = direction;
             if (harvestPlan == null)
             {
                 return NotFound();
             }
+            ViewData["subjects"] = harvestPlan.Subjects.Select(x=>x.Subject);
             return View("TraingPlan",harvestPlan);
         }
     }

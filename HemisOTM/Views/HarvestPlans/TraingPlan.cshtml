@@ -26,29 +26,37 @@
 <div class="col-12">
     <div class="card card-header sameheight-item">
         <div class="card-header">
-            <div class="header-block">
-                <h3 class="title">
-                    <label class="nounderline">
-                        <i class="fa fa-pencil-square-o"></i> O'quv reja
-                    </label>
-                </h3>
-            </div>
-            <form asp-action="Index" method="get" class="header-block pull-right">
-                <div>
-                    <label class="search">
-                        <i class="fa fa-search search-icon"> </i>
-                        <input type="text" class="search-input" name="SearchString" placeholder=" Search..." />
-                        <a asp-action="Create" class="btn btn-primary">
-                            <i class="fa fa-plus-square"></i>
-                            Create
-                        </a>
-                    </label>
-                </div>
-            </form>
+          
+        </div>
+        @{ 
+            var direction = @ViewBag.direction;
+        }
+            
+        
+        <div class="card card-body text-center" style="text-transform:uppercase">
+                <h4>
+                    O'zbekiston Respublikasi Oliy va O'rta Maxsus Ta'lim Vazirligi Mirzo Ulug'bek Nomidagi O'zbekiston Milliy Unversteti
+                </h4>
+                <h4>
+                    O'quv Reja
+                </h4>
+                <h4>
+                    Ta'lim yo'nalishi <a class=" font-weight-bold">  @direction.Code  - @direction.Name</a>
+                    yo'nalish bo'yicha
+                </h4>
+                <h5>
+                    Akademik daraja -<a class=" font-weight-bold">Bakalavr</a>
+                    <br />
+                    O'qish shakli -<a class=" font-weight-bold">kredit tizimi</a>
+                </h5>
+                <h5>
+                    O'quv Jarayoni Jadvali
+                </h5>
+           
         </div>
         <table id="alignCenter">
             <tbody class="table-bordered">
-               
+
                 <tr>
                     <td style="width:30px;" rowspan="8">
                         <p>Т/р</p>
@@ -71,6 +79,7 @@
                     <td id="rotate" colspan="2" rowspan="7">
                         Жами кредитлар
                     </td>
+                    
                 </tr>
 
                 <tr>
@@ -291,6 +300,7 @@
                     <td>
                         240
                     </td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -379,9 +389,112 @@
                     <td>
                         28
                     </td>
+                    <td></td>
                 </tr>
 
-              
+                @foreach (var item in ViewBag.subjects)
+                {
+                    int sumhour = 0;
+                    int sumhour2 = 0;
+                    sumhour = @item.Lecture + @item.Practical + @item.Laboratory + @item.Seminar + @item.CourseWork;
+                    sumhour2 = sumhour + @item.IndependentEducation;
+                    int a = 0;
+                    a = @item.KOneOne + @item.KOneTwo + @item.KTwoOne + @item.KTwoTwo + @item.KThreeOne + @item.KThreeTwo + @item.FourOne + @item.FourTwo;
+
+                    <tr>
+                        <td>
+                            @item.SubjectId
+                        </td>
+                        <td>
+                            @item.SubjectCode
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td class="font-weight-bold">
+                          @sumhour2
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            @sumhour
+                        </td>
+                        <td>
+                            @item.Lecture
+                        </td>
+                        <td>
+                            @item.Practical
+                        </td>
+                        <td>
+                            @item.Laboratory
+                        </td>
+                        <td>
+                            @item.Seminar
+                        </td>
+                        <td>
+                            @item.CourseWork
+                        </td>
+
+                        <td>
+                            @item.IndependentEducation
+                        </td>
+                        <td>
+                            @item.OneOne
+                        </td>
+                        <td>
+                            @item.OneTwo
+                        </td>
+                        <td>
+                            @item.TwoOne
+                        </td>
+                        <td>
+                            @item.TwoTwo
+                        </td>
+                        <td>
+                            @item.ThreeOne
+                        </td>
+                        <td>
+                            @item.ThreeTwo
+                        </td>
+                        <td>
+                            @item.FourOne
+                        </td>
+                        <td>
+                            @item.FourTwo
+                        </td>
+                        <td>
+                            @item.KOneOne
+                        </td>
+                        <td>
+                            @item.KOneTwo
+                        </td>
+                        <td>
+                            @item.KTwoOne
+                        </td>
+                        <td>
+                            @item.KTwoTwo
+                        </td>
+                        <td>
+                            @item.KThreeOne
+                        </td>
+                        <td>
+                            @item.KThreeTwo
+                        </td>
+                        <td>
+                            @item.KFourOne
+                        </td>
+                        <td>
+                            @item.KFourTwo
+                        </td>
+                        <td>
+                            @a
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"></a>
+                        </td>
+                    </tr>
+                }
+
             </tbody>
         </table>
     </div>
