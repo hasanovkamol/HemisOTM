@@ -27,7 +27,7 @@ namespace HemisOTM
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 options.EnableSensitiveDataLogging();
             });
-           // services.AddDatabaseDeveloperPageExceptionFilter();
+
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                .AddDefaultUI()

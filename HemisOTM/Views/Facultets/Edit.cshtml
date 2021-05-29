@@ -8,16 +8,16 @@
     <div class="card card-header sameheight-item">
         <a style="width:60px; height:30px" asp-action="Create" asp-controller="Facultets" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Edit facultet</h3>
+        </a><h3>O'quv rejani tahrirlash</h3>
         <div class="card-header">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="FacultetID" />
                         <div class="form-group">
                             <label asp-for="Name" class="control-label"></label>
-                            <input style="width:200px" asp-for="Name" class="form-control" />
+                            <input  asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">

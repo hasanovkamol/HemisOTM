@@ -20,7 +20,7 @@ namespace HemisOTM.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.Grups;
+            var entityDbContext = _context.Grups.Include(x => x.DirectionList);
             return View(await entityDbContext.ToListAsync());
         }
 

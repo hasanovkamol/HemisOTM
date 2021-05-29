@@ -19,13 +19,16 @@ namespace HemisOTM.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.HarvestPlans
+            return View(await SourseEntity());
+        }
+         private async Task<List<HarvestPlan>> SourseEntity()
+        {
+           return await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
-                .Include(h => h.GetDepartment);
-            return View(await entityDbContext.ToListAsync());
+                .Include(h => h.GetDepartment)
+                .Include(h => h.Subjects).ThenInclude(s => s.Subject).ToListAsync();
         }
-         
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,6 +39,8 @@ namespace HemisOTM.Controllers
             var harvestPlan = await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
+                .Include(h => h.GetDepartment)
+                .Include(h => h.Subjects).ThenInclude(s => s.Subject)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
             if (harvestPlan == null)
             {
@@ -61,12 +66,12 @@ namespace HemisOTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                Allubject();
-                Current = harvestPlan;
+                 Allubject();
+                 Current = harvestPlan;
                 return View("AddSubject");
             }
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
-            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == true), "Name", "GrupId", harvestPlan.GrupId);
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName", harvestPlan.TeacherId);
+            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == true), "GrupId", "Name", harvestPlan.GrupId);
             return View(harvestPlan);
         }
         public async Task<IActionResult> SaveSubject()
@@ -75,7 +80,7 @@ namespace HemisOTM.Controllers
             {
                 _context.Add(Current);
                 await _context.SaveChangesAsync();
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -147,10 +152,8 @@ namespace HemisOTM.Controllers
             
             Current.Subjects.Add(new SubjectTraingPlan() 
             { 
-                Subject=subject,
                 SubjectId=subject.SubjectId,
-                HardvesPlanId=Current.HarvestPlanId,
-                HarvestPlan=Current
+                HardvesPlanId=Current.HarvestPlanId
             });
             DontAddedSubjectData();
             return View("AddSubject");
@@ -167,8 +170,8 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
-            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName", harvestPlan.TeacherId);
+            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "Name", harvestPlan.GrupId);
             return View(harvestPlan);
         }
         [HttpPost]
@@ -200,8 +203,8 @@ namespace HemisOTM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "TeacherId", harvestPlan.TeacherId);
-            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "GrupId", harvestPlan.GrupId);
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName", harvestPlan.TeacherId);
+            ViewData["GrupId"] = new SelectList(_context.Grups, "GrupId", "Name", harvestPlan.GrupId);
             return View(harvestPlan);
         }
         public async Task<IActionResult> Delete(int? id)
@@ -214,6 +217,8 @@ namespace HemisOTM.Controllers
             var harvestPlan = await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
+                .Include(h => h.GetDepartment)
+                .Include(h => h.Subjects).ThenInclude(z=>z.Subject)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
             if (harvestPlan == null)
             {
@@ -235,6 +240,25 @@ namespace HemisOTM.Controllers
         private bool HarvestPlanExists(int id)
         {
             return _context.HarvestPlans.Any(e => e.HarvestPlanId == id);
+        }
+        public async Task<IActionResult> TraingPlan(int? Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+
+            var harvestPlan = await _context.HarvestPlans
+                .Include(h => h.GetTeacher)
+                .Include(h => h.Grups)
+                .Include(h => h.GetDepartment)
+                .Include(h => h.Subjects).ThenInclude(s => s.Subject)
+                .FirstOrDefaultAsync(m => m.HarvestPlanId == Id);
+            if (harvestPlan == null)
+            {
+                return NotFound();
+            }
+            return View("TraingPlan",harvestPlan);
         }
     }
 }

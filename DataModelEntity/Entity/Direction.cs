@@ -10,9 +10,9 @@ namespace DataModelEntity.Entity
         [Key]
         [Display(Name = "№")]
         public int DirectionId { get; set; }
-        [Display(Name="Direction code")]
+        [Display(Name="Yo'nalish kodi")]
         public string Code { get; set; }
-        [Display(Name = "Direction name")]
+        [Display(Name = "Yo'nalish nomi")]
         public string Name { get; set; }
         public List<Grup> GetGrups { get; set; }
         public List<Student> Students { get; set; }

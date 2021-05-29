@@ -4,39 +4,43 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>HarvestPlan</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepatmentId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepatmentId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GetTeacher)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GetTeacher.TeacherId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Grups)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Grups.GrupId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.HarvestPlanId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="col-12">
+    <div class="card card-block sameheight-item align-items-center">
+        <h3>Fan haqida ma'lumot</h3>
+        <div class="card-header">
+            <dl class="row">
+                <dt class="col-12">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-12">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-12">
+                    @Html.DisplayNameFor(model => model.GetDepartment.Name)
+                </dt>
+                <dd class="col-12">
+                    @Html.DisplayFor(model => model.GetDepartment.Name)
+                </dd>
+                <dt class="col-12">
+                    @Html.DisplayNameFor(model => model.GetTeacher.FullName)
+                </dt>
+                <dd class="col-12">
+                    @Html.DisplayFor(model => model.GetTeacher.FullName)
+                </dd>
+                <dt class="col-12">
+                    @Html.DisplayNameFor(model => model.Grups.Name)
+                </dt>
+                <dd class="col-12">
+                    @Html.DisplayFor(model => model.Grups.Name)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-12">
+            <a class="btn btn-primary" asp-action="Index" asp-controller="HarvestPlans">
+                <i class="fa fa-backward"></i>
+            </a>|
+            <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.HarvestPlanId">Edit</a> |
+            <a class="btn btn-warning" asp-action="Delete" asp-route-id="@Model.DepatmentId">Delete</a>
+        </div>
+        </div>
+    </div>

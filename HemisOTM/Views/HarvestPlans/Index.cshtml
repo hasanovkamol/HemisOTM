@@ -42,6 +42,9 @@
                            Ma'sul (FIO)
                         </th>
                         <th>
+                            Fanlar soni
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Grups.Name)
                         </th>
                         <th></th>
@@ -52,25 +55,29 @@
                     {
                         @if (item.Grups.isPranet)
                         {
-                            <tr class="table-active">
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.GetDepartment.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Grups.Name)
-                                </td>
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.HarvestPlanId">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.HarvestPlanId">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.HarvestPlanId">Delete</a>
-                                </td>
-                            </tr>
+                    <tr class="table-active">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GetDepartment.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Grups.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subjects.Count)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.HarvestPlanId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.HarvestPlanId">Details</a> |
+                            <a asp-action="TraingPlan" asp-route-id="@item.HarvestPlanId">Tahrirlash</a>
+                 
+                        </td>
+                    </tr>
                         }
                         else
                         {
@@ -90,7 +97,7 @@
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.HarvestPlanId">Edit</a> |
                                     <a asp-action="Details" asp-route-id="@item.HarvestPlanId">Details</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.HarvestPlanId">Delete</a>
+                                    <a asp-action="TraingPlan" asp-route-id="@item.HarvestPlanId">Tahrirlash</a>
                                 </td>
                             </tr>
                         }
