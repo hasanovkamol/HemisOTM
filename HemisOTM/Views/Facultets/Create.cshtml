@@ -8,55 +8,60 @@
     <div class="card card-header sameheight-item">
         <a style="width:60px; height:30px" asp-action="Create" asp-controller="Departments" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Create facultet</h3>
-        <div class="card-header">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-
-                        </th>
-                        <th>
-                            <div class="card card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form asp-action="Create">
-                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                            <div class="form-group">
-                                                <label asp-for="Name" class="control-label">Name</label>
-                                                <input style="width:400px" asp-for="Name" class="form-control" />
-                                                <span asp-validation-for="Name" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" value="Create" class="btn btn-primary" />
-                                            </div>
-                                        </form>
-                                    </div>
+        </a><h3>Yangi facultet yaratish</h3>
+            <div class="card-block">
+                <div class="card card-body">
+                    <div class="row">
+                        <div class="col-12" style="background:#b9d7cf">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Name" class="control-label">Name</label>
+                                    <input  asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in ViewBag.facultets)
-                    {
-                    <tr>
-                        <td>
-                            @item.FacultetID
-                        </td>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.FacultetID">Edit</a> 
-                            <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.FacultetID">Delete</a>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                </div>
+                <h3>Qo'shilgan fakultetlar ro'yxati</h3>
+                <table class="table">
+                    <thead>
+                        <tr class="table-active">
+                            <th>
+                                №
+                            </th>
+                            <th>
+                                Fakultet nomi
+                            </th> 
+                            <th width="300">
+                                Qo'shimcha imkoniyatlar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.facultets)
+                        {
+                            <tr class="table-hover">
+                                <td>
+                                    @item.FacultetID
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    <a class="fa fa-edit" asp-action="Edit" asp-route-id="@item.FacultetID"> Tahrirlash</a>
+                                    <a class="fa fa-close" asp-action="Delete" asp-route-id="@item.FacultetID"> O'chirish</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
 
     </div>
 </div>

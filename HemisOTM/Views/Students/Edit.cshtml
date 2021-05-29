@@ -8,10 +8,9 @@
     <div class="card card-header sameheight-item">
         <a style="width:60px; height:30px" asp-action="Index" asp-controller="Students" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Edit facultet</h3>
-        <div class="card-header">
+        </a><h3>Talabani tahrirlash</h3>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="StudentId" />
@@ -48,7 +47,7 @@
             </div>
 </div>
         </div>
-</div>
+
             @section Scripts {
                 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
             }

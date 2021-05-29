@@ -10,7 +10,7 @@
             <div class="header-block">
                 <h3 class="title">
                     <label class="nounderline">
-                        <i class="fa fa-pencil-square-o"></i> Teachers
+                        <i class="fa fa-pencil-square-o"></i> O'qituvchilar ro'yxati
                     </label>
                 </h3>
             </div>
@@ -21,7 +21,7 @@
                         <input type="text" class="search-input" name="SearchString" placeholder=" Search..." value="@ViewData["currentFilter"]" />
                         <a asp-action="Create" class="btn btn-primary">
                             <i class="fa fa-plus-square"></i>
-                            Create
+                            Qo'shish
                         </a>
                     </label>
                 </div>
@@ -74,8 +74,8 @@
                                 @Html.DisplayFor(modelItem => item.GetDepartment.Name)
                             </td>
                             <td>
-                                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.TeacherId">Edit</a> |
-                                <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.TeacherId">Delete</a>
+                                <a class="fa fa-pencil" asp-action="Edit" asp-route-id="@item.TeacherId"> Tahrirlash</a> |
+                                <a class="fa fa-close" asp-action="Delete" asp-route-id="@item.TeacherId"> O'chirish</a>
                             </td>
                         </tr>
                     }

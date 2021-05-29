@@ -9,7 +9,7 @@
         <a style="width:60px; height:30px" asp-action="Create" asp-controller="Teachers" class="btn btn-primary">
             <i class="fa fa-backward"></i>
         </a>
-        <h3>Create departmen</h3>
+        <h3>Yangi kafedira yaratish</h3>
         <div class="card-header">
             <div class="card card-body">
                 <div class="row">
@@ -22,7 +22,7 @@
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <a asp-controller="Facultets" asp-action="Create" class="btn btn-primary">
-                                Add facultet
+                                Yangi fakultet yaratish
                             </a> <div class="form-group">
                                 <label asp-for="Name" class="control-label"></label>
                                 <input asp-for="Name" class="form-control" />
@@ -38,19 +38,25 @@
             </div>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr class="table-active">
                         <th>
-
+                            №
                         </th>
                         <th>
-
+                            Kafedra nomi
+                        </th>
+                        <th>
+                            Fakultet 
+                        </th>
+                        <th width="300">
+                            Qo'shimcha imkoniyatlash
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in ViewBag.departments)
                     {
-                        <tr>
+                        <tr class="table-hover">
                             <td>
                                 @item.DepartmentId
                             </td>
@@ -61,8 +67,8 @@
                                 @item.GetFacultet.Name
                             </td>
                             <td>
-                                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.DepartmentId">Edit</a> |
-                                <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.DepartmentId">Delete</a>
+                                <a class="fa fa-edit" asp-action="Edit" asp-route-id="@item.DepartmentId"> Tahrirlash</a> |
+                                <a class="fa fa-close" asp-action="Delete" asp-route-id="@item.DepartmentId"> O'chirish</a>
                             </td>
                         </tr>
                     }

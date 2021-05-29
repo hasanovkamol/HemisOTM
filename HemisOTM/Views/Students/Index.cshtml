@@ -10,7 +10,7 @@
             <div class="header-block">
                 <h3 class="title">
                     <label class="nounderline">
-                        <i class="fa fa-pencil-square-o"></i> Students
+                        <i class="fa fa-pencil-square-o"></i> Talabalar ro'yxati
                     </label>
                 </h3>
             </div>
@@ -21,7 +21,7 @@
                         <input type="text" class="search-input" name="SearchString" placeholder=" Search..."  />
                         <a asp-action="Create" class="btn btn-primary">
                             <i class="fa fa-plus-square"></i>
-                            Create
+                            Qo'shish
                         </a>
                     </label>
                 </div>
@@ -81,8 +81,8 @@
                         }
                     </td>
                     <td>
-                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                        <a class="btn btn-warning" asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                        <a class="fa fa-pencil" asp-action="Edit" asp-route-id="@item.StudentId"> Tahrirlash</a> |
+                        <a class="fa fa-close" asp-action="Delete" asp-route-id="@item.StudentId"> O'chirish</a>
                     </td>
                 </tr>
                 }
