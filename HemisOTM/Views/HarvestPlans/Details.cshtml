@@ -5,8 +5,8 @@
 }
 
 <div class="col-12">
-    <div class="card card-block sameheight-item align-items-center">
-        <h3>Fan haqida ma'lumot</h3>
+    <div class="card card-block sameheight-item ">
+        <h3>O'quv reja haqida ma'lumot </h3>
         <div class="card-header">
             <dl class="row">
                 <dt class="col-12">
@@ -35,12 +35,50 @@
                 </dd>
             </dl>
         </div>
+        <div>
+            <h3>Ushbu bo'limga bog'langan fanlar ro'yxati</h3>
+            <table class="table">
+                <thead>
+                    <tr class="table-active">
+                        <th>
+                           Fan kodi
+                        </th>
+                        <th>
+                            Fan nomi
+                        </th>
+                        <th>
+                            Fon bo'limi
+                        </th>
+
+                        <th width="120"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.subjects)
+                    {
+                        <tr class="table-hover">
+                            <td>
+                                @item.SubjectCode
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.SubjectBlockType.Name
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"> Ma'lumot</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
         <div class="col-12">
             <a class="btn btn-primary" asp-action="Index" asp-controller="HarvestPlans">
                 <i class="fa fa-backward"></i>
             </a>|
-            <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.HarvestPlanId">Edit</a> |
-            <a class="btn btn-warning" asp-action="Delete" asp-route-id="@Model.DepatmentId">Delete</a>
+            <a class="btn btn-warning" asp-action="TraingPlan" ><i class="fa fa-file"></i> Buyruq</a>
         </div>
         </div>
-    </div>
+</div>

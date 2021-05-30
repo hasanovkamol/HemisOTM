@@ -1,0 +1,33 @@
+﻿@model DataModelEntity.Entity.HarvestPlan
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="col-12">
+    <div class="card card-block sameheight-item">
+        <div class="title-block">
+            <div class="header-block">
+                <h2 class="title">Yangi o'quv rejaning asosiy fanlar bilin birlashtiring</h2>
+            </div>
+        </div>
+        <form asp-action="SaveChild" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" name="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="Grups.Name" class="control-label"></label>
+                <select asp-for="GrupId" name="GrupId" class="form-control" asp-items="ViewBag.GrupId"></select>
+            </div>
+            <div class="form-group">
+                <a class="btn btn-warning" asp-action="Index">Back to List</a>
+                <input type="submit" class="btn btn-primary" value="Next"/> 
+            </div>
+        </form>
+    </div>
+</div>

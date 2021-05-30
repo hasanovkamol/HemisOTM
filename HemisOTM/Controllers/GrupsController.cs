@@ -22,8 +22,29 @@ namespace HemisOTM.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var entityDbContext = _context.Grups.Include(x => x.DirectionList);
-            return View(await entityDbContext.ToListAsync());
+            var entityDbContext =await _context.Grups.Include(x => x.DirectionList).ToListAsync();
+            List<Grup> grups = new List<Grup>();
+            List<int> isPranse=new List<int>();
+            foreach (var item in entityDbContext.Where(x=>x.isPranet==true))
+            {
+                isPranse.Add(item.DirectId);
+            }
+            if(isPranse.Count>0)
+            {
+                foreach (var item in isPranse)
+                {
+                    foreach (var grup in entityDbContext.Where(x => x.DirectId == item))
+                    {
+                        grups.Add(grup);
+                    }
+                }
+            }
+            else
+            {
+                grups = entityDbContext;
+            }
+            
+            return View(grups);
         }
 
         public async Task<IActionResult> Details(int? id)

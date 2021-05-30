@@ -54,6 +54,7 @@
                 </h5>
            
         </div>
+      
         <table id="alignCenter">
             <tbody class="table-bordered">
 
@@ -79,7 +80,7 @@
                     <td id="rotate" colspan="2" rowspan="7">
                         Жами кредитлар
                     </td>
-                    
+
                 </tr>
 
                 <tr>
@@ -392,107 +393,210 @@
                     <td></td>
                 </tr>
 
+
+               
                 @foreach (var item in ViewBag.subjects)
                 {
+
                     int sumhour = 0;
                     int sumhour2 = 0;
                     sumhour = @item.Lecture + @item.Practical + @item.Laboratory + @item.Seminar + @item.CourseWork;
                     sumhour2 = sumhour + @item.IndependentEducation;
                     int a = 0;
                     a = @item.KOneOne + @item.KOneTwo + @item.KTwoOne + @item.KTwoTwo + @item.KThreeOne + @item.KThreeTwo + @item.FourOne + @item.FourTwo;
+                   
+                 
+                    if (item.SubjectId == 0)
+                    {
+                        <tr class="table-active">
+                            <td>
+                                
+                            </td>
+                            <td>
+                                @item.SubjectCode
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td class="font-weight-bold">
+                                @sumhour2
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                @sumhour
+                            </td>
+                            <td>
+                                @item.Lecture
+                            </td>
+                            <td>
+                                @item.Practical
+                            </td>
+                            <td>
+                                @item.Laboratory
+                            </td>
+                            <td>
+                                @item.Seminar
+                            </td>
+                            <td>
+                                @item.CourseWork
+                            </td>
 
-                    <tr>
-                        <td>
-                            @item.SubjectId
-                        </td>
-                        <td>
-                            @item.SubjectCode
-                        </td>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td class="font-weight-bold">
-                          @sumhour2
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            @sumhour
-                        </td>
-                        <td>
-                            @item.Lecture
-                        </td>
-                        <td>
-                            @item.Practical
-                        </td>
-                        <td>
-                            @item.Laboratory
-                        </td>
-                        <td>
-                            @item.Seminar
-                        </td>
-                        <td>
-                            @item.CourseWork
-                        </td>
+                            <td>
+                                @item.IndependentEducation
+                            </td>
+                            <td>
+                                @item.OneOne
+                            </td>
+                            <td>
+                                @item.OneTwo
+                            </td>
+                            <td>
+                                @item.TwoOne
+                            </td>
+                            <td>
+                                @item.TwoTwo
+                            </td>
+                            <td>
+                                @item.ThreeOne
+                            </td>
+                            <td>
+                                @item.ThreeTwo
+                            </td>
+                            <td>
+                                @item.FourOne
+                            </td>
+                            <td>
+                                @item.FourTwo
+                            </td>
+                            <td>
+                                @item.KOneOne
+                            </td>
+                            <td>
+                                @item.KOneTwo
+                            </td>
+                            <td>
+                                @item.KTwoOne
+                            </td>
+                            <td>
+                                @item.KTwoTwo
+                            </td>
+                            <td>
+                                @item.KThreeOne
+                            </td>
+                            <td>
+                                @item.KThreeTwo
+                            </td>
+                            <td>
+                                @item.KFourOne
+                            </td>
+                            <td>
+                                @item.KFourTwo
+                            </td>
+                            <td>
+                                @a
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="table-hover ">
+                            <td>
+                                @item.SubjectId
+                            </td>
+                            <td>
+                                @item.SubjectCode
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td >
+                                @sumhour2
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                @sumhour
+                            </td>
+                            <td>
+                                @item.Lecture
+                            </td>
+                            <td>
+                                @item.Practical
+                            </td>
+                            <td>
+                                @item.Laboratory
+                            </td>
+                            <td>
+                                @item.Seminar
+                            </td>
+                            <td>
+                                @item.CourseWork
+                            </td>
 
-                        <td>
-                            @item.IndependentEducation
-                        </td>
-                        <td>
-                            @item.OneOne
-                        </td>
-                        <td>
-                            @item.OneTwo
-                        </td>
-                        <td>
-                            @item.TwoOne
-                        </td>
-                        <td>
-                            @item.TwoTwo
-                        </td>
-                        <td>
-                            @item.ThreeOne
-                        </td>
-                        <td>
-                            @item.ThreeTwo
-                        </td>
-                        <td>
-                            @item.FourOne
-                        </td>
-                        <td>
-                            @item.FourTwo
-                        </td>
-                        <td>
-                            @item.KOneOne
-                        </td>
-                        <td>
-                            @item.KOneTwo
-                        </td>
-                        <td>
-                            @item.KTwoOne
-                        </td>
-                        <td>
-                            @item.KTwoTwo
-                        </td>
-                        <td>
-                            @item.KThreeOne
-                        </td>
-                        <td>
-                            @item.KThreeTwo
-                        </td>
-                        <td>
-                            @item.KFourOne
-                        </td>
-                        <td>
-                            @item.KFourTwo
-                        </td>
-                        <td>
-                            @a
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"></a>
-                        </td>
-                    </tr>
+                            <td>
+                                @item.IndependentEducation
+                            </td>
+                            <td>
+                                @item.OneOne
+                            </td>
+                            <td>
+                                @item.OneTwo
+                            </td>
+                            <td>
+                                @item.TwoOne
+                            </td>
+                            <td>
+                                @item.TwoTwo
+                            </td>
+                            <td>
+                                @item.ThreeOne
+                            </td>
+                            <td>
+                                @item.ThreeTwo
+                            </td>
+                            <td>
+                                @item.FourOne
+                            </td>
+                            <td>
+                                @item.FourTwo
+                            </td>
+                            <td>
+                                @item.KOneOne
+                            </td>
+                            <td>
+                                @item.KOneTwo
+                            </td>
+                            <td>
+                                @item.KTwoOne
+                            </td>
+                            <td>
+                                @item.KTwoTwo
+                            </td>
+                            <td>
+                                @item.KThreeOne
+                            </td>
+                            <td>
+                                @item.KThreeTwo
+                            </td>
+                            <td>
+                                @item.KFourOne
+                            </td>
+                            <td>
+                                @item.KFourTwo
+                            </td>
+                            <td>
+                                @a
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"></a>
+                            </td>
+                        </tr>
+                       
+                    }
+
                 }
 
             </tbody>
