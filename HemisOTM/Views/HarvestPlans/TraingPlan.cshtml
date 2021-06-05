@@ -72,10 +72,10 @@
                         Талабанинг укув юкламаси, соатларда
                     </td>
                     <td colspan="8">
-                        Соатларнинг курсб семестр ва хафталар буйнча татtспнотп
+                        Соатларнинг курсб семестр ва хафталар буйнча тақсимоти
                     </td>
                     <td colspan="8">
-                        Кредитларнинг курсб семестр ва &nbsp;хафталар буйнча татtспнотп
+                        Кредитларнинг курсб семестр ва хафталар буйнча тақсимоти
                     </td>
                     <td id="rotate" colspan="2" rowspan="7">
                         Жами кредитлар
@@ -121,7 +121,7 @@
 
                 <tr>
                     <td colspan="8">
-                        <p>Курслярдагн хлфталар сони</p>
+                        <p>Курслардагн хлфталар сони</p>
                     </td>
                     <td colspan="8">
                         <p>Курслардаги хафталар сони</p>
@@ -239,7 +239,7 @@
                         <p>Сместрдаги аудитория машущтлар хафталариниг сони</p>
                     </td>
                     <td colspan="8">
-                        <p>Кредит таксимоти</p>
+                        <p>Кредит тақсимоти</p>
                     </td>
                 </tr>
 
@@ -393,11 +393,9 @@
                     <td></td>
                 </tr>
 
-
-               
+ 
                 @foreach (var item in ViewBag.subjects)
                 {
-
                     int sumhour = 0;
                     int sumhour2 = 0;
                     sumhour = @item.Lecture + @item.Practical + @item.Laboratory + @item.Seminar + @item.CourseWork;
@@ -408,7 +406,7 @@
                  
                     if (item.SubjectId == 0)
                     {
-                        <tr class="table-active">
+                        <tr class="table-active font-weight-bold">
                             <td>
                                 
                             </td>
@@ -418,7 +416,7 @@
                             <td>
                                 @item.Name
                             </td>
-                            <td class="font-weight-bold">
+                            <td >
                                 @sumhour2
                             </td>
                             <td>

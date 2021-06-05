@@ -21,7 +21,7 @@ namespace DataModelEntity.Entity
         public int DirectionId { get; set; }
         [Display(Name = "Kurs")]
         public int Course { get; set; }
-        [Display(Name = "Birlashgan gruh nomi")]
+        [Display(Name = "Birlashgan guruh nomi")]
         public string GrupName { get; set; }
        
 

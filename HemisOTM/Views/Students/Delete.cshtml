@@ -8,7 +8,7 @@
     <div class="card card-header sameheight-item">
         <a style="width:60px; height:30px" asp-action="Index" asp-controller="Students" class="btn btn-primary">
             <i class="fa fa-backward"></i>
-        </a><h3>Siz rostdan ham ushbu talabani o'chirishni istaysizmi?</h3>
+        </a><h3>Siz rostdan ham ushbu talabani o'chirishni xohlaysizmi?</h3>
         <div class="card-header">
                 <dl class="row">
                     <dt class="col-sm-2">
@@ -33,7 +33,7 @@
                         @Html.DisplayNameFor(model => model.GetDirection)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.GetDirection.DirectionId)
+                        @Html.DisplayFor(model => model.GetDirection.Name)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Course)

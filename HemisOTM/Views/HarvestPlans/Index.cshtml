@@ -37,7 +37,7 @@
                             @Html.DisplayNameFor(model => model.GetDepartment.Name)
                         </th>
                         <th>
-                           Ma'sul (FIO)
+                           Mas'ul (FIO)
                         </th>
                         <th>
                             Fanlar soni
@@ -45,7 +45,7 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Grups.Name)
                         </th>
-                        <th width="200">Gruh bilan bog'lash</th>
+                        <th width="200">Guruh bilan bog'lash</th>
                         <th width="110">Ma'lumot</th>
                     </tr>
                 </thead>
@@ -59,7 +59,15 @@
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.GetDepartment.Name)
+                           
+                            @foreach (var dev in ViewBag.GetDepartment)
+                            {
+                                if(dev.DepartmentId==item.DepatmentId)
+                                {
+                                    <p>@dev.Name</p>
+                                    break;
+                                }
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
@@ -86,7 +94,14 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.GetDepartment.Name)
+                        @foreach (var dev in ViewBag.GetDepartment)
+                        {
+                            if (dev.DepartmentId == item.DepatmentId)
+                            {
+                                <p>@dev.Name</p>
+                                break;
+                            }
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
@@ -98,7 +113,7 @@
                         @Html.DisplayFor(modelItem => item.Grups.Name)
                     </td>
                     <td>
-                        Gruh bilan bog'langan
+                        Guruh bilan bog'langan
                     </td>
                     <td>
                         <a class="fa fa-database" asp-action="Details" asp-route-id="@item.HarvestPlanId"> Ma'lumot</a>

@@ -16,6 +16,7 @@ namespace DataModelEntity.Entity
         public string Surname { get; set; }
         [Display(Name = "Otasini ismi")]
         public string Middilname { get; set; }
+        [Display(Name = "Lavozim")]
         public string Position { get; set; }
         [Display(Name = "Ilmiy darajasi")]
         public string AcademicDegree { get; set; }
@@ -23,7 +24,7 @@ namespace DataModelEntity.Entity
         [Display(Name= "Kafedra nomi")]
         public Department GetDepartment { get; set; }
         public List<HarvestPlan> HarvestPlans { get; set; }
-        [Display(Name="Ma'sul (FIO)")]
+        [Display(Name="Mas'ul (FIO)")]
         public string FullName { get => this.Name + " " + this.Surname; }
     }
 }

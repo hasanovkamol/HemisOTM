@@ -23,6 +23,7 @@ namespace HemisOTM.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewData["GetDepartment"] = _context.Departments.ToList();
             return View(await SourseEntity());
         }
          private async Task<List<HarvestPlan>> SourseEntity()
@@ -49,6 +50,7 @@ namespace HemisOTM.Controllers
                 .ThenInclude(s => s.Subject)
                 .ThenInclude(x=>x.SubjectBlockType)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
+            ViewData["GetDepartment"] = _context.Departments.FirstOrDefault(x=>x.DepartmentId==harvestPlan.DepatmentId).Name;
             if (harvestPlan == null)
             {
                 return NotFound();

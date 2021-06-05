@@ -17,14 +17,14 @@
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Name" class="control-label"></label>
+                                <label  class="control-label">Fakultetni tanlang</label>
                                 <select asp-for="FacultetId" class="form-control" asp-items="ViewBag.FacultetName"></select>
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <a asp-controller="Facultets" asp-action="Create" class="btn btn-primary">
                                 Yangi fakultet yaratish
                             </a> <div class="form-group">
-                                <label asp-for="Name" class="control-label"></label>
+                                <label  class="control-label">Kafedra nomi</label>
                                 <input asp-for="Name" class="form-control" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
@@ -49,7 +49,7 @@
                             Fakultet 
                         </th>
                         <th width="300">
-                            Qo'shimcha imkoniyatlash
+                            Qo'shimcha imkoniyatlar
                         </th>
                     </tr>
                 </thead>

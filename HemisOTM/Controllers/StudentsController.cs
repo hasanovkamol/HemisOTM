@@ -61,7 +61,7 @@ namespace HemisOTM.Controllers
             ViewData["DirectionName"] = new SelectList(_context.Directions, "DirectionId", "Name");
             return View(student);
         }
-
+        private static string  grupName = "";
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,6 +74,7 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
+            grupName = student.GrupName;
             ViewData["DirectionName"] = new SelectList(_context.Directions, "DirectionId", "Name");
             return View(student);
         }
@@ -90,6 +91,7 @@ namespace HemisOTM.Controllers
             {
                 try
                 {
+                    student.GrupName = grupName;
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
