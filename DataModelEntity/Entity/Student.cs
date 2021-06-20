@@ -23,7 +23,8 @@ namespace DataModelEntity.Entity
         public int Course { get; set; }
         [Display(Name = "Birlashgan guruh nomi")]
         public string GrupName { get; set; }
-       
+        public string Logn { get; set; }
+        public string Password { get; set; }
 
     }
 }

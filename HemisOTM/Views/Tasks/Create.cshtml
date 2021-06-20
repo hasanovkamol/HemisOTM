@@ -1,0 +1,77 @@
+﻿@model DataModelEntity.Entity.Task
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="col-12">
+    <div class="card card-block sameheight-item">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Create" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="TaskName" class="control-label"></label>
+                        <input asp-for="TaskName" class="form-control" />
+                        <span asp-validation-for="TaskName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Vazifani turni tanlang</label>
+                        <select name="type" typeof="string" class="form-control">
+                            <option>
+                                Yakuni
+                            </option>
+                            <option>
+                                Oraliq
+                            </option>
+                            <option>
+                                Maruza
+                            </option>
+                            <option>
+                                Amaliyot
+                            </option>
+                            <option>
+                                Labaratorya
+                            </option>
+                            <option>
+                                KursIsh
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FileName" class="control-label"></label>
+                        <input type="file" class="form-control-file" name="bookUrl" />
+                        <span asp-validation-for="FileName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">As File nami</label>
+                        <input asp-for="FileName" class="form-control" />
+                        <span asp-validation-for="TaskName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="control-label"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <a class="btn btn-warning" asp-action="Index">Back to List</a>
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+    </div>
+      
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }

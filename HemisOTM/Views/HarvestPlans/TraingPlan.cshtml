@@ -5,6 +5,8 @@
 }
 <style>
     #rotate {
+        margin-left: -10em;
+        margin-top: auto;
         text-align: center;
         max-width: 30px;
         white-space: nowrap;
@@ -63,89 +65,93 @@
                         <p>Т/р</p>
                     </td>
                     <td id="rotate" rowspan="8">
-                        Фаннинг малакавий коди
+                        <p style="margin:0px 0px 0px -60px">
+                            Fanning malakaviy kodi
+                        </p> 
                     </td>
                     <td rowspan="8">
-                        Укув фанлари, блоклар ва фаолият турларининг номлари
+                        O'quv fanlari, bloklar va faoliyat turlarining nomlari
                     </td>
                     <td colspan="9">
-                        Талабанинг укув юкламаси, соатларда
+                        Talabaning o'quv yuklamasi, soatlarda
                     </td>
                     <td colspan="8">
-                        Соатларнинг курсб семестр ва хафталар буйнча тақсимоти
+                        Soatlarning kursb semestr va xaftalar buyncha taqsimoti
                     </td>
                     <td colspan="8">
-                        Кредитларнинг курсб семестр ва хафталар буйнча тақсимоти
+                        Kreditlarning kursb semestr va xaftalar buyncha taqsimoti
                     </td>
                     <td id="rotate" colspan="2" rowspan="7">
-                        Жами кредитлар
+                        Jami kreditlar
                     </td>
 
                 </tr>
 
                 <tr>
                     <td id="rotate" colspan="2" rowspan="6">
-                        Умумий юклама хажми
+                        <p style="margin:0px 0px 0px -60px">
+                            Yuklarning umumiy hajmi
+                        </p> 
                     </td>
                     <td colspan="6" rowspan="2">
-                        Аудитория машгулщелар, соатларда
+                        Auditoriya mashg'ulotlar, soatlarda
                     </td>
                     <td id="rotate" rowspan="7">
-                        Мустакил тальлим
+                        Mustakil ta'lim
                     </td>
                     <td colspan="2">
-                        <p>1-курс</p>
+                        <p>1-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>2-курс</p>
+                        <p>2-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>3-курс</p>
+                        <p>3-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>4-курс</p>
+                        <p>4-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>1-курс</p>
+                        <p>1-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>2-курс</p>
+                        <p>2-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>3-курс</p>
+                        <p>3-kurs</p>
                     </td>
                     <td colspan="2">
-                        <p>4-курс</p>
+                        <p>4-kurs</p>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="8">
-                        <p>Курслардагн хлфталар сони</p>
+                        <p>Kurslardagi haftalar soni</p>
                     </td>
                     <td colspan="8">
-                        <p>Курслардаги хафталар сони</p>
+                        <p>Kurslardagi haftalar soni</p>
                     </td>
                 </tr>
 
                 <tr>
                     <td id="rotate" rowspan="5">
-                        Жами
+                        Jami
                     </td>
                     <td id="rotate" rowspan="5">
-                        Маьруза
+                        Maruza
                     </td>
                     <td id="rotate" rowspan="5">
-                        Амалий
+                       Amaliyot
                     </td>
                     <td id="rotate" rowspan="5">
-                        Лаборатория
+                        Laboratoriya
                     </td>
                     <td id="rotate" rowspan="5">
-                        Семинар
+                        Seminar
                     </td>
                     <td id="rotate" rowspan="5">
-                        Курс иши
+                        Kurs ish
                     </td>
                     <td colspan="2">
                         40
@@ -175,10 +181,10 @@
 
                 <tr>
                     <td colspan="8">
-                        <p>Семестрлар</p>
+                        <p>Semestrlar</p>
                     </td>
                     <td colspan="8">
-                        <p>Семестрлар</p>
+                        <p>Semestrlar</p>
                     </td>
                 </tr>
 
@@ -236,16 +242,16 @@
 
                 <tr>
                     <td colspan="8">
-                        <p>Сместрдаги аудитория машущтлар хафталариниг сони</p>
+                        <p>Smestrdagi auditoriya mashg'ulatlar haftalarinig soni</p>
                     </td>
                     <td colspan="8">
-                        <p>Кредит тақсимоти</p>
+                        <p>Kredit taqsimoti</p>
                     </td>
                 </tr>
 
                 <tr>
                     <td style="width:30px">
-                        соат
+                        soat
                     </td>
                     <td style="width:30px;">
                         %
@@ -393,7 +399,7 @@
                     <td></td>
                 </tr>
 
- 
+                @{ int subjectid = 1;}
                 @foreach (var item in ViewBag.subjects)
                 {
                     int sumhour = 0;
@@ -502,7 +508,8 @@
                     {
                         <tr class="table-hover ">
                             <td>
-                                @item.SubjectId
+                                @subjectid
+                                @{ subjectid += 1;}
                             </td>
                             <td>
                                 @item.SubjectCode

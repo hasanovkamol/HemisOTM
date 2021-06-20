@@ -41,7 +41,7 @@
                 <thead>
                     <tr class="table-active">
                         <th>
-                           Fan kodi
+                            Fan kodi
                         </th>
                         <th>
                             Fan nomi
@@ -51,25 +51,29 @@
                         </th>
 
                         <th width="120"></th>
+                        <th width="120"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in ViewBag.subjects)
                     {
-                        <tr class="table-hover">
-                            <td>
-                                @item.SubjectCode
-                            </td>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @item.SubjectBlockType.Name
-                            </td>
-                            <td>
-                                <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"> Ma'lumot</a>
-                            </td>
-                        </tr>
+                    <tr class="table-hover">
+                        <td>
+                            @item.SubjectCode
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.SubjectBlockType.Name
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-controller="Subjects" class="fa fa-eye" asp-route-id="@item.SubjectId"> Ma'lumot</a>
+                        </td>
+                        <td>
+                            <a asp-action="Create" asp-controller="Tasks" class="fa fa-tasks" asp-route-id="@item.SubjectId"> Vazifalar</a>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>

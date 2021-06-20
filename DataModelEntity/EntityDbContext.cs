@@ -50,5 +50,6 @@ namespace DataModelEntity.Entity
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectBlockType> SubjectBlockTypes { get; set; }
         public DbSet<HarvestPlan> HarvestPlans { get; set; }
+        public DbSet<Task> Tasks { get; set; }
     }
 }

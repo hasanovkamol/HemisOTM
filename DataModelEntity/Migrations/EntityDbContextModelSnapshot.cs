@@ -152,10 +152,16 @@ namespace DataModelEntity.Migrations
                     b.Property<string>("GrupName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Logn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Middilname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -292,6 +298,39 @@ namespace DataModelEntity.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("SubjectTraingPlans");
+                });
+
+            modelBuilder.Entity("DataModelEntity.Entity.Task", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GrupId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TaskName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>

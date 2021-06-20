@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModelEntity.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20210605104726_BuildModelDatabase")]
-    partial class BuildModelDatabase
+    [Migration("20210620135749_BuildDatabase")]
+    partial class BuildDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,7 @@ namespace DataModelEntity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DepartmenHarvesttId")
+                    b.Property<int>("DepatmentId")
                         .HasColumnType("int");
 
                     b.Property<int?>("GetDepartmentDepartmentId")
@@ -154,10 +154,16 @@ namespace DataModelEntity.Migrations
                     b.Property<string>("GrupName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Logn")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Middilname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -294,6 +300,39 @@ namespace DataModelEntity.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("SubjectTraingPlans");
+                });
+
+            modelBuilder.Entity("DataModelEntity.Entity.Task", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GrupId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TaskName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Teacher", b =>
@@ -560,7 +599,7 @@ namespace DataModelEntity.Migrations
                         .WithMany("HarvestPlans")
                         .HasForeignKey("SubjectId");
 
-                    b.HasOne("DataModelEntity.Entity.Teacher", "Teachers")
+                    b.HasOne("DataModelEntity.Entity.Teacher", "GetTeacher")
                         .WithMany("HarvestPlans")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -568,9 +607,9 @@ namespace DataModelEntity.Migrations
 
                     b.Navigation("GetDepartment");
 
-                    b.Navigation("Grups");
+                    b.Navigation("GetTeacher");
 
-                    b.Navigation("Teachers");
+                    b.Navigation("Grups");
                 });
 
             modelBuilder.Entity("DataModelEntity.Entity.Student", b =>

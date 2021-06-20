@@ -36,7 +36,17 @@
                         <span asp-validation-for="Course" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label  class="control-label">Yo'nalishni tanlang</label>
+                        <label asp-for="Logn" class="control-label"></label>
+                        <input asp-for="Logn" class="form-control" />
+                        <span asp-validation-for="Logn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Yo'nalishni tanlang</label>
                         <select asp-for="DirectionId" class="form-control" asp-items="ViewBag.DirectionName"></select>
                         <br />
                         <a class="btn btn-primary-outline" asp-controller="Directions" asp-action="Create">Yangi yo'nalish yaratish</a>
@@ -45,7 +55,7 @@
                         <a class="btn btn-warning" asp-action="Index"><i class="fa fa-backward"></i></a>
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
-                   
+
                 </form>
             </div>
         </div>

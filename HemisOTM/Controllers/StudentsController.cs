@@ -50,7 +50,7 @@ namespace HemisOTM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,Name,Surname,Middilname,Course,DirectionId")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentId,Name,Surname,Middilname,Course,Logn,Password,DirectionId")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace HemisOTM.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StudentId,Name,Surname,Middilname,Course,DirectionId")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("StudentId,Name,Surname,Middilname,Logn,Password,Course,DirectionId")] Student student)
         {
             if (id != student.StudentId)
             {

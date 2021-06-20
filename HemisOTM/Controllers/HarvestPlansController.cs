@@ -26,15 +26,16 @@ namespace HemisOTM.Controllers
             ViewData["GetDepartment"] = _context.Departments.ToList();
             return View(await SourseEntity());
         }
-         private async Task<List<HarvestPlan>> SourseEntity()
+        private async Task<List<HarvestPlan>> SourseEntity()
         {
-           return await _context.HarvestPlans
-                .Include(h => h.GetTeacher)
-                .Include(h => h.Grups).ThenInclude(g=>g.DirectionList)
-                .Include(h => h.GetDepartment)
-                .Include(h => h.Subjects).ThenInclude(s => s.Subject).ToListAsync();
+            return await _context.HarvestPlans
+                 .Include(h => h.GetTeacher)
+                 .Include(h => h.Grups).ThenInclude(g => g.DirectionList)
+                 .Include(h => h.GetDepartment)
+                 .Include(h => h.Subjects).ThenInclude(s => s.Subject).ToListAsync();
         }
         private static int? CurrentId;
+        public static int CurrentGrupId;
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,33 +49,49 @@ namespace HemisOTM.Controllers
                 .Include(h => h.GetDepartment)
                 .Include(h => h.Subjects)
                 .ThenInclude(s => s.Subject)
-                .ThenInclude(x=>x.SubjectBlockType)
+                .ThenInclude(x => x.SubjectBlockType)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
-            ViewData["GetDepartment"] = _context.Departments.FirstOrDefault(x=>x.DepartmentId==harvestPlan.DepatmentId).Name;
+            CurrentGrupId = harvestPlan.GrupId;
+            var harvestPlanMain = await _context.HarvestPlans
+                .Include(h => h.GetTeacher)
+                .Include(h => h.Grups)
+                .Include(h => h.GetDepartment)
+                .Include(h => h.Subjects)
+                .ThenInclude(s => s.Subject)
+                .ThenInclude(x => x.SubjectBlockType)
+                .FirstOrDefaultAsync(m => m.Grups.DirectId == harvestPlan.Grups.DirectId && m.Grups.isPranet == true);
+
+            ViewData["GetDepartment"] = _context.Departments.FirstOrDefault(x => x.DepartmentId == harvestPlan.DepatmentId).Name;
             if (harvestPlan == null)
             {
                 return NotFound();
             }
-            ViewData["subjects"] = harvestPlan.Subjects.Select(x => x.Subject);
+            List<Subject> subjects = new List<Subject>();
+            subjects = harvestPlanMain.Subjects.Select(x => x.Subject).ToList();
+            foreach (var item in harvestPlan.Subjects.Select(x => x.Subject))
+            {
+                subjects.Add(item);
+            }
+            ViewData["subjects"] = subjects;
 
             return View(harvestPlan);
         }
         public async Task<IActionResult> Create()
         {
-            var list = _context.HarvestPlans.Include(x => x.Grups).Where(x=>x.Grups.isPranet==true).ToList();
-            var grup =await _context.Grups.Include(c => c.DirectionList)
+            var list = _context.HarvestPlans.Include(x => x.Grups).Where(x => x.Grups.isPranet == true).ToList();
+            var grup = await _context.Grups.Include(c => c.DirectionList)
                 .Where(x => x.isPranet == true)
                 .ToListAsync();
 
             var grups = grup.Where(x => list.FirstOrDefault(y => y.Grups.DirectId == x.DirectId) == null).ToList();
-            if (grups.Count >0)
+            if (grups.Count > 0)
             {
                 ViewData["grupItemNull"] = "Hamma gruplar uchun o'quv reja shakilantrilgan";
             }
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName");
             ViewData["GrupId"] = new SelectList(grups, "GrupId", "Name");
             ViewData["DepartmentName"] = new SelectList(_context.Departments, "DepartmentId", "Name");
-            var subject = _context.Subjects.Include(s=>s.SubjectBlockType).ToList();
+            var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
             ViewData["SujcetList"] = subject;
             Current = new HarvestPlan();
             Current.Subjects = new List<SubjectTraingPlan>();
@@ -86,8 +103,8 @@ namespace HemisOTM.Controllers
         {
             if (ModelState.IsValid)
             {
-                 Allubject();
-                 Current = harvestPlan;
+                Allubject();
+                Current = harvestPlan;
                 return View("AddSubject");
             }
             ViewData["TeacherId"] = new SelectList(_context.Teachers, "TeacherId", "FullName", harvestPlan.TeacherId);
@@ -108,7 +125,7 @@ namespace HemisOTM.Controllers
                 return NotFound();
             }
         }
-        public  IActionResult Remove(int? Id)
+        public IActionResult Remove(int? Id)
         {
             if (Current == null) return NotFound();
             Current.Subjects.Remove(Current.Subjects.First(x => x.SubjectId == Id));
@@ -122,7 +139,7 @@ namespace HemisOTM.Controllers
         }
         private void AddedSubjectData()
         {
-           
+
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
             if (Current.Subjects != null)
             {
@@ -137,7 +154,7 @@ namespace HemisOTM.Controllers
         private void DontAddedSubjectData()
         {
             var subject = _context.Subjects.Include(s => s.SubjectBlockType).ToList();
-            if(Current.Subjects!=null)
+            if (Current.Subjects != null)
             {
                 subject = subject
                     .Where(x => Current.Subjects.FirstOrDefault(p => p.SubjectId == x.SubjectId) == null)
@@ -158,22 +175,22 @@ namespace HemisOTM.Controllers
         private static HarvestPlan Current;
         public async Task<IActionResult> Select(int? id)
         {
-            var subjects =await _context.Subjects.Include(s => s.SubjectBlockType).ToListAsync();
+            var subjects = await _context.Subjects.Include(s => s.SubjectBlockType).ToListAsync();
             var subject = subjects
-                .Where(x=>x.SubjectId==id).FirstOrDefault();
-            if (Current.Subjects==null)
+                .Where(x => x.SubjectId == id).FirstOrDefault();
+            if (Current.Subjects == null)
             {
                 Current.Subjects = new List<SubjectTraingPlan>();
             }
-            if(subject==null)
+            if (subject == null)
             {
                 return NotFound();
             }
-            
-            Current.Subjects.Add(new SubjectTraingPlan() 
-            { 
-                SubjectId=subject.SubjectId,
-                HardvesPlanId=Current.HarvestPlanId
+
+            Current.Subjects.Add(new SubjectTraingPlan()
+            {
+                SubjectId = subject.SubjectId,
+                HardvesPlanId = Current.HarvestPlanId
             });
             DontAddedSubjectData();
             return View("AddSubject");
@@ -237,11 +254,11 @@ namespace HemisOTM.Controllers
             var harvestPlan = await _context.HarvestPlans
                 .Include(h => h.GetTeacher)
                 .Include(h => h.Grups)
-                
+
                 .Include(h => h.GetDepartment)
-                .Include(h => h.Subjects).ThenInclude(z=>z.Subject)
+                .Include(h => h.Subjects).ThenInclude(z => z.Subject)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
-            
+
             if (harvestPlan == null)
             {
                 return NotFound();
@@ -265,7 +282,7 @@ namespace HemisOTM.Controllers
         }
         public async Task<IActionResult> TraingPlan()
         {
-           int? Id = CurrentId;
+            int? Id = CurrentId;
             if (Id == null)
             {
                 return NotFound();
@@ -276,7 +293,7 @@ namespace HemisOTM.Controllers
                 .Include(h => h.Grups)
                 .ThenInclude(g => g.DirectionList)
                 .Include(h => h.GetDepartment)
-                .Include(h => h.Subjects).ThenInclude(s => s.Subject).ThenInclude(d=>d.SubjectBlockType)
+                .Include(h => h.Subjects).ThenInclude(s => s.Subject).ThenInclude(d => d.SubjectBlockType)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == Id);
             var direction = _context.Directions.FirstOrDefault(x => x.DirectionId == harvestPlan.Grups.DirectId);
             ViewData["direction"] = direction;
@@ -290,10 +307,10 @@ namespace HemisOTM.Controllers
                 .ThenInclude(g => g.DirectionList)
                 .Include(h => h.GetDepartment)
                 .Include(h => h.Subjects).ThenInclude(s => s.Subject).ThenInclude(d => d.SubjectBlockType)
-                .FirstOrDefaultAsync(m => m.Grups.isPranet==true && m.Grups.DirectId==harvestPlan.Grups.DirectId);
+                .FirstOrDefaultAsync(m => m.Grups.isPranet == true && m.Grups.DirectId == harvestPlan.Grups.DirectId);
             List<Subject> subjects1 = new List<Subject>();
             List<Subject> subjects = new List<Subject>();
-          
+
             foreach (var item in harvestPlan2.Subjects)
             {
                 if (subjects.Where(x => x.SubjectId == item.Subject.SubjectId).FirstOrDefault() == null)
@@ -302,29 +319,29 @@ namespace HemisOTM.Controllers
                 }
 
             }
-            
+
             foreach (var item in harvestPlan.Subjects)
             {
-                if(subjects.Where(x => x.SubjectId == item.Subject.SubjectId).FirstOrDefault() == null)
+                if (subjects.Where(x => x.SubjectId == item.Subject.SubjectId).FirstOrDefault() == null)
                 {
                     subjects.Add(item.Subject);
                 }
-                
+
             }
-            
+
 
             var subjectBlockTypes = subjects.GroupBy(x => x.SubjectBlockType.Name)
                 .Select(s =>
-                new 
-                { 
-                    Key=s.Key
+                new
+                {
+                    Key = s.Key
                 });
-            
+
             foreach (var item in subjectBlockTypes)
             {
 
-                var ss = subjects.Where(x=>x.SubjectBlockType.Name==item.Key).ToList();
-               
+                var ss = subjects.Where(x => x.SubjectBlockType.Name == item.Key).ToList();
+
                 Subject subject = new Subject()
                 {
                     Name = item.Key,
@@ -334,7 +351,7 @@ namespace HemisOTM.Controllers
                     Laboratory = ss.Sum(x => x.Laboratory),
                     CourseWork = ss.Sum(x => x.CourseWork),
                     IndependentEducation = ss.Sum(x => x.IndependentEducation),
-                   
+
                     OneOne = ss.Sum(x => x.OneOne),
                     OneTwo = ss.Sum(x => x.OneTwo),
                     TwoOne = ss.Sum(x => x.TwoOne),
@@ -354,7 +371,7 @@ namespace HemisOTM.Controllers
                     KFourTwo = ss.Sum(x => x.KFourTwo),
 
                 };
-              
+
                 subjects1.Add(subject);
                 subjects1.AddRange(ss);
             }
@@ -362,7 +379,7 @@ namespace HemisOTM.Controllers
             ViewData["sumClock"] = 700;
 
             ViewData["subjects"] = subjects1;
-            return View("TraingPlan",harvestPlan);
+            return View("TraingPlan", harvestPlan);
         }
 
         public async Task<IActionResult> CreateGrupChild(int? id)
@@ -371,25 +388,26 @@ namespace HemisOTM.Controllers
             {
                 return NotFound();
             }
-            var harvestPlan = await _context.HarvestPlans
+            var harvestPlan = await _context.HarvestPlans.Include(x => x.Subjects)
                 .FirstOrDefaultAsync(m => m.HarvestPlanId == id);
             if (harvestPlan == null)
             {
                 return NotFound();
             }
-           
+
             Current = harvestPlan;
             Current.HarvestPlanId = 0;
             int GrupId = _context.Grups.FirstOrDefault(x => x.GrupId == Current.GrupId).DirectId;
-            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == false && x.DirectId== GrupId), "GrupId", "Name");
+            ViewData["GrupId"] = new SelectList(_context.Grups.Where(x => x.isPranet == false && x.DirectId == GrupId), "GrupId", "Name");
 
-            return View("CreateGrupChild",Current);
+            return View("CreateGrupChild", Current);
         }
-        public async Task<IActionResult> SaveChild(string Name,int GrupId)
+        public async Task<IActionResult> SaveChild(string Name, int GrupId)
         {
             if (ModelState.IsValid)
             {
-                Allubject();
+                var subject = await _context.Subjects.Include(s => s.SubjectBlockType).ToListAsync();
+                ViewData["SujcetList"] = subject;
                 Current.Name = Name;
                 Current.GrupId = GrupId;
                 return View("AddSubject");

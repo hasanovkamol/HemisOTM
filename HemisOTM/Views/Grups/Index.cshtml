@@ -49,7 +49,7 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.DirectionList.Name)
+                                @Html.DisplayFor(modelItem => item.DirectionList.DirectionId)
                             </td>
                             <td>
                                 <a asp-action="AllStudent" class="fa fa-database" asp-route-id="@item.GrupId"> Barchasi</a>
@@ -63,6 +63,7 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.DirectionList.DirectionId)
                             </td>
                             <td>
                                 <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.GrupId"> Tahrirlash</a>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataModelEntity.Migrations
 {
-    public partial class BuildModelDatabase : Migration
+    public partial class BuildDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,6 +84,25 @@ namespace DataModelEntity.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SubjectBlockTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tasks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaskType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    GrupId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tasks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,7 +244,9 @@ namespace DataModelEntity.Migrations
                     Middilname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DirectionId = table.Column<int>(type: "int", nullable: false),
                     Course = table.Column<int>(type: "int", nullable: false),
-                    GrupName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    GrupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -332,7 +353,7 @@ namespace DataModelEntity.Migrations
                     HarvestPlanId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DepartmenHarvesttId = table.Column<int>(type: "int", nullable: false),
+                    DepatmentId = table.Column<int>(type: "int", nullable: false),
                     GetDepartmentDepartmentId = table.Column<int>(type: "int", nullable: true),
                     TeacherId = table.Column<int>(type: "int", nullable: false),
                     GrupId = table.Column<int>(type: "int", nullable: false),
@@ -510,6 +531,9 @@ namespace DataModelEntity.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubjectTraingPlans");
+
+            migrationBuilder.DropTable(
+                name: "Tasks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

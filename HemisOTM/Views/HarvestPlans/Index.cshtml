@@ -27,101 +27,105 @@
             </form>
        
         </div>
-            <table class="table">
-                <thead>
-                    <tr class="table-primary">
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.GetDepartment.Name)
-                        </th>
-                        <th>
-                           Mas'ul (FIO)
-                        </th>
-                        <th>
-                            Fanlar soni
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Grups.Name)
-                        </th>
-                        <th width="200">Guruh bilan bog'lash</th>
-                        <th width="110">Ma'lumot</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        @if (item.Grups.isPranet)
-                        {
-                    <tr class="table-active">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                           
-                            @foreach (var dev in ViewBag.GetDepartment)
-                            {
-                                if(dev.DepartmentId==item.DepatmentId)
-                                {
-                                    <p>@dev.Name</p>
-                                    break;
-                                }
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Subjects.Count)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Grups.Name)
-                        </td>
-
-                        <td>
-                            <a class="fa fa-group" asp-action="CreateGrupChild" asp-route-id="@item.HarvestPlanId"> Qo'shish </a>
-                        </td>
-                        <td>
-                            <a class="fa fa-database" asp-action="Details" asp-route-id="@item.HarvestPlanId"> Ma'lumot</a>
-                        </td>
-                    </tr>
-                        }
-                        else
-                        {
-                <tr class="table-hover">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @foreach (var dev in ViewBag.GetDepartment)
-                        {
-                            if (dev.DepartmentId == item.DepatmentId)
-                            {
-                                <p>@dev.Name</p>
-                                break;
-                            }
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subjects.Count)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Grups.Name)
-                    </td>
-                    <td>
-                        Guruh bilan bog'langan
-                    </td>
-                    <td>
-                        <a class="fa fa-database" asp-action="Details" asp-route-id="@item.HarvestPlanId"> Ma'lumot</a>
-                    </td>
+        <table class="table">
+            <thead>
+                <tr class="table-primary">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GetDepartment.Name)
+                    </th>
+                    <th>
+                        Mas'ul (FIO)
+                    </th>
+                    <th>
+                        Fanlar soni
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Grups.Name)
+                    </th>
+                    <th width="200">Guruh bilan bog'lash</th>
+                    <th width="110">Ma'lumot</th>
                 </tr>
-                        }
+            </thead>
+            @{ int subjectCount = 0;}
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    @if (item.Grups.isPranet)
+                    {
+                        subjectCount = item.Subjects.Count;
+                        <tr class="table-active">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+
+                                @foreach (var dev in ViewBag.GetDepartment)
+                                {
+                                    if (dev.DepartmentId == item.DepatmentId)
+                                    {
+                                        <p>@dev.Name</p>
+                                        break;
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subjects.Count)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grups.Name)
+                            </td>
+
+                            <td>
+                                <a class="fa fa-group" asp-action="CreateGrupChild" asp-route-id="@item.HarvestPlanId"> Qo'shish </a>
+                            </td>
+                            <td>
+                                <a class="fa fa-database" asp-action="Details" asp-route-id="@item.HarvestPlanId"> Ma'lumot</a>
+                            </td>
+                        </tr>
                     }
-                </tbody>
-            </table>
+                    else
+                    {
+                        <tr class="table-hover">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @foreach (var dev in ViewBag.GetDepartment)
+                                {
+                                    if (dev.DepartmentId == item.DepatmentId)
+                                    {
+                                        <p>@dev.Name</p>
+                                        break;
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GetTeacher.FullName)
+                            </td>
+                            <td>
+                                @(subjectCount+ item.Subjects.Count)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grups.Name)
+                            </td>
+                            <td>
+                                Guruh bilan bog'langan
+                            </td>
+                            <td>
+                                <a class="fa fa-database" asp-action="Details" asp-route-id="@item.HarvestPlanId"> Ma'lumot</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
             </div>
 </div>
