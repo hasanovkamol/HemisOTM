@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.21.1",
-    "vue": "^2.6.12"
+    "vue": "^3.0.0"
   },
   "name": "npminstaller",
   "version": "1.0.0",
