@@ -1,5 +1,5 @@
 #FROM ubuntu:16.04
-FROM node:alpine
+FROM node:25.3.0-alpine3.23
 RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
